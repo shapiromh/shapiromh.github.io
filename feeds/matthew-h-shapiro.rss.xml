@@ -11,5 +11,5 @@
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'r-'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;{% img /images/output_2_0.png Test Graph! %}&lt;/p&gt;
+&lt;p&gt;{% img left /images/output_2_0.png 'Test Graph!' %}&lt;/p&gt;
 </description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew H. Shapiro</dc:creator><pubDate>Mon, 04 May 2015 01:47:00 -0500</pubDate><guid>tag:,2015-05-04:test-notebook.html</guid><category>tests</category><category>junk</category><category>totrash</category></item></channel></rss>
