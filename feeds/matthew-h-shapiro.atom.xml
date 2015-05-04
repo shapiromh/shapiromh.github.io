@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Anything But Economist</title><link href="/" rel="alternate"></link><link href="/feeds/matthew-h-shapiro.atom.xml" rel="self"></link><id>/</id><updated>2015-05-04T01:47:00-05:00</updated><entry><title>Sample Notebook</title><link href="/test-notebook.html" rel="alternate"></link><updated>2015-05-04T01:47:00-05:00</updated><author><name>Matthew H. Shapiro</name></author><id>tag:,2015-05-04:test-notebook.html</id><summary type="html">&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Anything But Economist</title><link href="https://shapiromh.github.io/" rel="alternate"></link><link href="https://shapiromh.github.io/feeds/matthew-h-shapiro.atom.xml" rel="self"></link><id>https://shapiromh.github.io/</id><updated>2015-05-04T01:47:00-05:00</updated><entry><title>Sample Notebook</title><link href="https://shapiromh.github.io/test-notebook.html" rel="alternate"></link><updated>2015-05-04T01:47:00-05:00</updated><author><name>Matthew H. Shapiro</name></author><id>tag:shapiromh.github.io,2015-05-04:test-notebook.html</id><summary type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
 &lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
