@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Anything But Economist</title><link href="/" rel="alternate"></link><link href="/feeds/testing.atom.xml" rel="self"></link><id>/</id><updated>2015-05-04T01:47:00-05:00</updated><entry><title>Sample Notebook</title><link href="/test-notebook.html" rel="alternate"></link><updated>2015-05-04T01:47:00-05:00</updated><author><name>Matthew H. Shapiro</name></author><id>tag:,2015-05-04:test-notebook.html</id><summary type="html">&lt;p&gt;This is a test of IPython notebook's integration into the blog.&lt;/p&gt;
-&lt;p&gt;``` {.sourceCode .python}
-import matplotlib.pyplot as plt
-import numpy as np
-%matplotlib inline&lt;/p&gt;
-&lt;p&gt;x = np.linspace(0, 100, 1000)
-y = np.sin(x / 4)&lt;/p&gt;
-&lt;p&gt;plt.plot(x, y, 'r-')
-plt.show()
-```&lt;/p&gt;
-&lt;p&gt;&lt;img src="/images/output\_2\_0.png" alt="'Test Graph!'" class="left" title="'Test Graph!'"&gt;&lt;/p&gt;</summary><category term="tests"></category><category term="junk"></category><category term="totrash"></category></entry></feed>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Anything But Economist</title><link href="/" rel="alternate"></link><link href="/feeds/testing.atom.xml" rel="self"></link><id>/</id><updated>2015-05-04T01:47:00-05:00</updated><entry><title>Sample Notebook</title><link href="/test-notebook.html" rel="alternate"></link><updated>2015-05-04T01:47:00-05:00</updated><author><name>Matthew H. Shapiro</name></author><id>tag:,2015-05-04:test-notebook.html</id><summary type="html">&lt;p&gt;{% notebook Sample\ Notebook.ipynb}&lt;/p&gt;</summary><category term="tests"></category><category term="junk"></category><category term="totrash"></category></entry></feed>

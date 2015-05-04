@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anything But Economist</title><link>/</link><description></description><atom:link href="/feeds/matthew-h-shapiro.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 04 May 2015 01:47:00 -0500</lastBuildDate><item><title>Sample Notebook</title><link>/test-notebook.html</link><description>&lt;p&gt;This is a test of IPython notebook's integration into the blog.&lt;/p&gt;
-&lt;p&gt;``` {.sourceCode .python}
-import matplotlib.pyplot as plt
-import numpy as np
-%matplotlib inline&lt;/p&gt;
-&lt;p&gt;x = np.linspace(0, 100, 1000)
-y = np.sin(x / 4)&lt;/p&gt;
-&lt;p&gt;plt.plot(x, y, 'r-')
-plt.show()
-```&lt;/p&gt;
-&lt;p&gt;&lt;img src="/images/output\_2\_0.png" alt="'Test Graph!'" class="left" title="'Test Graph!'"&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew H. Shapiro</dc:creator><pubDate>Mon, 04 May 2015 01:47:00 -0500</pubDate><guid>tag:,2015-05-04:test-notebook.html</guid><category>tests</category><category>junk</category><category>totrash</category></item></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anything But Economist</title><link>/</link><description></description><atom:link href="/feeds/matthew-h-shapiro.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 04 May 2015 01:47:00 -0500</lastBuildDate><item><title>Sample Notebook</title><link>/test-notebook.html</link><description>&lt;p&gt;{% notebook Sample\ Notebook.ipynb}&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew H. Shapiro</dc:creator><pubDate>Mon, 04 May 2015 01:47:00 -0500</pubDate><guid>tag:,2015-05-04:test-notebook.html</guid><category>tests</category><category>junk</category><category>totrash</category></item></channel></rss>
