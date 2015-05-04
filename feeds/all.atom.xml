@@ -11,5 +11,5 @@
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'r-'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;{% img /images/output_2_0.png %}&lt;/p&gt;
+&lt;p&gt;{% img /images/output_2_0.png Test Graph! %}&lt;/p&gt;
 </summary><category term="tests"></category><category term="junk"></category><category term="totrash"></category></entry><entry><title>Sample Post</title><link href="/sample-post.html" rel="alternate"></link><updated>2014-05-27T00:00:00-05:00</updated><author><name>Matthew Shapiro</name></author><id>tag:,2014-05-27:sample-post.html</id><summary type="html">&lt;p&gt;This is a test post.&lt;/p&gt;</summary></entry></feed>
