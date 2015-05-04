@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anything But Economist</title><link>/</link><description></description><atom:link href="/feeds/matthew-h-shapiro.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 04 May 2015 01:47:00 -0500</lastBuildDate><item><title>Sample Notebook</title><link>/test-notebook.html</link><description>&lt;p&gt;This is a test of IPython notebook's integration into the blog.&lt;/p&gt;
-&lt;pre class="code python literal-block"&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
-&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;matplotlib&lt;/span&gt; &lt;span class="n"&gt;inline&lt;/span&gt;
-
-&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linspace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'r-'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;{% img left /images/output_2_0.png 'Test Graph!' %}&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew H. Shapiro</dc:creator><pubDate>Mon, 04 May 2015 01:47:00 -0500</pubDate><guid>tag:,2015-05-04:test-notebook.html</guid><category>tests</category><category>junk</category><category>totrash</category></item></channel></rss>
+&lt;p&gt;``` {.sourceCode .python}
+import matplotlib.pyplot as plt
+import numpy as np
+%matplotlib inline&lt;/p&gt;
+&lt;p&gt;x = np.linspace(0, 100, 1000)
+y = np.sin(x / 4)&lt;/p&gt;
+&lt;p&gt;plt.plot(x, y, 'r-')
+plt.show()
+```&lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/output\_2\_0.png" alt="'Test Graph!'" class="left" title="'Test Graph!'"&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew H. Shapiro</dc:creator><pubDate>Mon, 04 May 2015 01:47:00 -0500</pubDate><guid>tag:,2015-05-04:test-notebook.html</guid><category>tests</category><category>junk</category><category>totrash</category></item></channel></rss>
