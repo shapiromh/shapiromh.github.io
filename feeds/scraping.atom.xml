@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Anything But Economist</title><link href="https://shapiromh.github.io/" rel="alternate"></link><link href="https://shapiromh.github.io/feeds/scraping.atom.xml" rel="self"></link><id>https://shapiromh.github.io/</id><updated>2016-05-07T14:01:00-05:00</updated><entry><title>A Short Introduction to Scraping</title><link href="https://shapiromh.github.io/scraping-summary.html" rel="alternate"></link><published>2016-05-07T14:01:00-05:00</published><author><name>Matthew H. Shapiro</name></author><id>tag:shapiromh.github.io,2016-05-07:scraping-summary.html</id><summary type="html">&lt;p&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[30]:&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Imports&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;bs&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
 &lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h1 id="Scraping-Tips"&gt;Scraping Tips&lt;a class="anchor-link" href="#Scraping-Tips"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;These examples were created for Joel Waldfogel's class on 29 March 2016. They are illustrative rather than optimized (not that I can necessarily produce optimal scraping code). They are meant to accompany slides, but I have added some extra notes to make them useful to look back on later.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Author&lt;/strong&gt;: Matt Shapiro (shap0157@umn.edu)&lt;/p&gt;
+
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -35,6 +21,22 @@
 
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[1]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Imports&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;bs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
 &lt;div class="prompt input_prompt"&gt;
@@ -188,7 +190,7 @@
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[76]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[2]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;http://www.boxofficemojo.com/daily/?view=month&amp;amp;yr=2015&amp;amp;filter=mar&amp;amp;p=.htm&amp;#39;&lt;/span&gt;
@@ -212,7 +214,7 @@
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[77]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[3]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;page_source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;content&lt;/span&gt;
@@ -256,7 +258,7 @@
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[78]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[4]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;page_soup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page_source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;lxml&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -280,7 +282,7 @@
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[79]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[5]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;The number of tables in the document is &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page_soup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;table&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -319,7 +321,7 @@
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[80]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[6]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;no_cell_space&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page_soup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;table&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cellspacing&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}))&lt;/span&gt;
@@ -365,7 +367,7 @@ The number of tables in the document with this border is  3
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[81]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[7]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Save the table from the list returned by find_all&lt;/span&gt;
@@ -389,7 +391,7 @@ The number of tables in the document with this border is  3
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[82]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[8]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data_row&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tr&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
@@ -439,7 +441,7 @@ $4,598,888
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[94]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[9]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Set up the dictionary to save the data&lt;/span&gt;
@@ -481,7 +483,7 @@ $4,598,888
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[95]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[10]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;output_pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -495,7 +497,7 @@ $4,598,888
 &lt;div class="output"&gt;
 
 
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[95]:&lt;/div&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[10]:&lt;/div&gt;
 
 &lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
 &lt;div&gt;
@@ -619,7 +621,7 @@ $4,598,888
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[96]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[11]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;months&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;jan&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;feb&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;mar&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;apr&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;may&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;jun&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
@@ -658,7 +660,7 @@ $4,598,888
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[101]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[12]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
@@ -737,7 +739,7 @@ $4,598,888
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[110]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[13]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;topcount&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;top_movie&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;  &lt;span class="c1"&gt;# Count how often the movie is the top&lt;/span&gt;
@@ -921,7 +923,7 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[112]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[14]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;base_html&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://na.chargepoint.com/dashboard/getChargeSpots&amp;#39;&lt;/span&gt;
@@ -959,7 +961,7 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[113]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[15]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;base_html&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;param&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -982,7 +984,7 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[117]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[16]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;station_results&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
@@ -1006,7 +1008,7 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[124]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[17]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;station_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;station_results&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;station_list&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;summaries&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
@@ -1020,10 +1022,10 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[126]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[20]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;station_data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;station_data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iloc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -1034,223 +1036,42 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;div class="output"&gt;
 
 
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[126]:&lt;/div&gt;
-
-&lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
-&lt;div&gt;
-&lt;table border="1" class="dataframe"&gt;
-  &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;address&lt;/th&gt;
-      &lt;th&gt;bearing&lt;/th&gt;
-      &lt;th&gt;can_remote_start_charge&lt;/th&gt;
-      &lt;th&gt;community_mode&lt;/th&gt;
-      &lt;th&gt;description&lt;/th&gt;
-      &lt;th&gt;device_id&lt;/th&gt;
-      &lt;th&gt;distance&lt;/th&gt;
-      &lt;th&gt;distance_in_mile&lt;/th&gt;
-      &lt;th&gt;is_connected&lt;/th&gt;
-      &lt;th&gt;lat&lt;/th&gt;
-      &lt;th&gt;lon&lt;/th&gt;
-      &lt;th&gt;map_data&lt;/th&gt;
-      &lt;th&gt;network_id&lt;/th&gt;
-      &lt;th&gt;out_of_network&lt;/th&gt;
-      &lt;th&gt;payment_type&lt;/th&gt;
-      &lt;th&gt;port_count&lt;/th&gt;
-      &lt;th&gt;port_type_count&lt;/th&gt;
-      &lt;th&gt;pricing&lt;/th&gt;
-      &lt;th&gt;program_ids&lt;/th&gt;
-      &lt;th&gt;program_info&lt;/th&gt;
-      &lt;th&gt;reference_bearing&lt;/th&gt;
-      &lt;th&gt;reference_distance&lt;/th&gt;
-      &lt;th&gt;reference_distance_in_mile&lt;/th&gt;
-      &lt;th&gt;station_name&lt;/th&gt;
-      &lt;th&gt;station_power_shed_status&lt;/th&gt;
-      &lt;th&gt;station_status&lt;/th&gt;
-      &lt;th&gt;tip_count&lt;/th&gt;
-      &lt;th&gt;tou_status&lt;/th&gt;
-      &lt;th&gt;user_bearing&lt;/th&gt;
-      &lt;th&gt;user_distance&lt;/th&gt;
-      &lt;th&gt;user_distance_in_mile&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'145 N Broadway', u'state_name'...&lt;/td&gt;
-      &lt;td&gt;360&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Garage business hours; pay lot; keypad activat...&lt;/td&gt;
-      &lt;td&gt;1000019301&lt;/td&gt;
-      &lt;td&gt;1113&lt;/td&gt;
-      &lt;td&gt;0.21&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;34.055061&lt;/td&gt;
-      &lt;td&gt;-118.245041&lt;/td&gt;
-      &lt;td&gt;{}&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 3}&lt;/td&gt;
-      &lt;td&gt;{u'81': 3}&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;360&lt;/td&gt;
-      &lt;td&gt;1109&lt;/td&gt;
-      &lt;td&gt;0.21&lt;/td&gt;
-      &lt;td&gt;[Los Angeles Law Library]&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;unknown&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;8036269&lt;/td&gt;
-      &lt;td&gt;1,522.02&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'235 S Hill St', u'state_name':...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;True&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Parking Rates Apply: Station is on P1&lt;/td&gt;
-      &lt;td&gt;119339&lt;/td&gt;
-      &lt;td&gt;1472&lt;/td&gt;
-      &lt;td&gt;0.28&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;34.052670&lt;/td&gt;
-      &lt;td&gt;-118.248528&lt;/td&gt;
-      &lt;td&gt;{u'level2': {u'paid': {u'available': 2, u'tota...&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;paid&lt;/td&gt;
-      &lt;td&gt;{u'available': 2, u'total': 2}&lt;/td&gt;
-      &lt;td&gt;{u'3': 2}&lt;/td&gt;
-      &lt;td&gt;pricing_detail&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;1472&lt;/td&gt;
-      &lt;td&gt;0.28&lt;/td&gt;
-      &lt;td&gt;[BROOKFIELD WEST, WFC HILL ST 01]&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;available&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;8037636&lt;/td&gt;
-      &lt;td&gt;1,522.28&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'235 S Hill St', u'state_name':...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;True&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Parking Rates Apply: Stations are on P1 by ent...&lt;/td&gt;
-      &lt;td&gt;118935&lt;/td&gt;
-      &lt;td&gt;1481&lt;/td&gt;
-      &lt;td&gt;0.28&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;34.052633&lt;/td&gt;
-      &lt;td&gt;-118.248562&lt;/td&gt;
-      &lt;td&gt;{u'level2': {u'paid': {u'available': 2, u'tota...&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;paid&lt;/td&gt;
-      &lt;td&gt;{u'available': 2, u'total': 2}&lt;/td&gt;
-      &lt;td&gt;{u'3': 2}&lt;/td&gt;
-      &lt;td&gt;pricing_detail&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;1481&lt;/td&gt;
-      &lt;td&gt;0.28&lt;/td&gt;
-      &lt;td&gt;[BROOKFIELD WEST, WFC HILL ST 02]&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;available&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;8037653&lt;/td&gt;
-      &lt;td&gt;1,522.28&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'101-115 E 4th St', u'state_nam...&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;9 a.m. - 4:00 p.m. 7 days a week&lt;/td&gt;
-      &lt;td&gt;106697&lt;/td&gt;
-      &lt;td&gt;1858&lt;/td&gt;
-      &lt;td&gt;0.35&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;34.047854&lt;/td&gt;
-      &lt;td&gt;-118.246847&lt;/td&gt;
-      &lt;td&gt;{u'level2': {u'paid': {u'available': 0, u'tota...&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;paid&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 1}&lt;/td&gt;
-      &lt;td&gt;{u'3': 1}&lt;/td&gt;
-      &lt;td&gt;1.00/hr&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;1861&lt;/td&gt;
-      &lt;td&gt;0.35&lt;/td&gt;
-      &lt;td&gt;[CITY OF LA, BSL #1]&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;in_use&lt;/td&gt;
-      &lt;td&gt;15&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;8038292&lt;/td&gt;
-      &lt;td&gt;1,522.40&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'225 S Olive St', u'state_name'...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Located on right just inside garage, parking f...&lt;/td&gt;
-      &lt;td&gt;83233&lt;/td&gt;
-      &lt;td&gt;1863&lt;/td&gt;
-      &lt;td&gt;0.35&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;34.053296&lt;/td&gt;
-      &lt;td&gt;-118.249713&lt;/td&gt;
-      &lt;td&gt;{u'level2': {u'paid': {u'available': 0, u'tota...&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;paid&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 1}&lt;/td&gt;
-      &lt;td&gt;{u'3': 1}&lt;/td&gt;
-      &lt;td&gt;0.3000/kwh&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;1862&lt;/td&gt;
-      &lt;td&gt;0.35&lt;/td&gt;
-      &lt;td&gt;[G&amp;amp;K, MUSEUM TOWERS 2]&lt;/td&gt;
-      &lt;td&gt;False&lt;/td&gt;
-      &lt;td&gt;in_use&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;225&lt;/td&gt;
-      &lt;td&gt;8037784&lt;/td&gt;
-      &lt;td&gt;1,522.31&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;address                       {u&amp;apos;address1&amp;apos;: u&amp;apos;145 N Broadway&amp;apos;, u&amp;apos;state_name&amp;apos;...
+bearing                                                                     360
+can_remote_start_charge                                                     NaN
+community_mode                                                              NaN
+description                   Garage business hours; pay lot; keypad activat...
+device_id                                                            1000019301
+distance                                                                   1113
+distance_in_mile                                                           0.21
+is_connected                                                                NaN
+lat                                                                     34.0551
+lon                                                                    -118.245
+map_data                                                                     {}
+network_id                                                                    9
+out_of_network                                                                3
+payment_type                                                                NaN
+port_count                                       {u&amp;apos;available&amp;apos;: 0, u&amp;apos;total&amp;apos;: 3}
+port_type_count                                                      {u&amp;apos;81&amp;apos;: 3}
+pricing                                                                     NaN
+program_ids                                                                 NaN
+program_info                  {u&amp;apos;honda_program_enabled&amp;apos;: 0, u&amp;apos;bmw_program_en...
+reference_bearing                                                           360
+reference_distance                                                         1109
+reference_distance_in_mile                                                 0.21
+station_name                                          [Los Angeles Law Library]
+station_power_shed_status                                                   NaN
+station_status                                                          unknown
+tip_count                                                                     2
+tou_status                                                                 open
+user_bearing                                                                225
+user_distance                                                           8036269
+user_distance_in_mile                                                  1,522.02
+Name: 0, dtype: object
+&lt;/pre&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1278,7 +1099,7 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[127]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[21]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_stationdata&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ne_lng&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ne_lat&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sw_lng&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sw_lat&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -1304,12 +1125,12 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[131]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[22]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sample&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_stationdata&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;122.346666667&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;39.1851851852&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;123.373333333&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;38.8333333333&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;sample&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DataFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;sample&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;sample&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iloc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -1320,217 +1141,41 @@ the &lt;span style="color:red"&gt;Network Tool&lt;/span&gt; tab in the same tool
 &lt;div class="output"&gt;
 
 
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[131]:&lt;/div&gt;
-
-&lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
-&lt;div&gt;
-&lt;table border="1" class="dataframe"&gt;
-  &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;address&lt;/th&gt;
-      &lt;th&gt;bearing&lt;/th&gt;
-      &lt;th&gt;can_remote_start_charge&lt;/th&gt;
-      &lt;th&gt;community_mode&lt;/th&gt;
-      &lt;th&gt;description&lt;/th&gt;
-      &lt;th&gt;device_id&lt;/th&gt;
-      &lt;th&gt;distance&lt;/th&gt;
-      &lt;th&gt;distance_in_mile&lt;/th&gt;
-      &lt;th&gt;is_connected&lt;/th&gt;
-      &lt;th&gt;lat&lt;/th&gt;
-      &lt;th&gt;lon&lt;/th&gt;
-      &lt;th&gt;map_data&lt;/th&gt;
-      &lt;th&gt;network_id&lt;/th&gt;
-      &lt;th&gt;out_of_network&lt;/th&gt;
-      &lt;th&gt;payment_type&lt;/th&gt;
-      &lt;th&gt;port_count&lt;/th&gt;
-      &lt;th&gt;port_type_count&lt;/th&gt;
-      &lt;th&gt;pricing&lt;/th&gt;
-      &lt;th&gt;program_info&lt;/th&gt;
-      &lt;th&gt;reference_bearing&lt;/th&gt;
-      &lt;th&gt;reference_distance&lt;/th&gt;
-      &lt;th&gt;reference_distance_in_mile&lt;/th&gt;
-      &lt;th&gt;station_name&lt;/th&gt;
-      &lt;th&gt;station_power_shed_status&lt;/th&gt;
-      &lt;th&gt;station_status&lt;/th&gt;
-      &lt;th&gt;tip_count&lt;/th&gt;
-      &lt;th&gt;tou_status&lt;/th&gt;
-      &lt;th&gt;user_bearing&lt;/th&gt;
-      &lt;th&gt;user_distance&lt;/th&gt;
-      &lt;th&gt;user_distance_in_mile&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'13771 S Highway 101', u'state_...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;10am-6pm daily&lt;/td&gt;
-      &lt;td&gt;1000017691&lt;/td&gt;
-      &lt;td&gt;73823&lt;/td&gt;
-      &lt;td&gt;13.98&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;38.966724&lt;/td&gt;
-      &lt;td&gt;-123.114540&lt;/td&gt;
-      &lt;td&gt;{}&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 2}&lt;/td&gt;
-      &lt;td&gt;{u'89': 2}&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;2291286&lt;/td&gt;
-      &lt;td&gt;433.96&lt;/td&gt;
-      &lt;td&gt;[Solar Living Institute]&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;unknown&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;8339980&lt;/td&gt;
-      &lt;td&gt;1,579.54&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'14160 Mountain House Rd', u'st...&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;9am-5pm daily&lt;/td&gt;
-      &lt;td&gt;1000023237&lt;/td&gt;
-      &lt;td&gt;74682&lt;/td&gt;
-      &lt;td&gt;14.14&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;38.959988&lt;/td&gt;
-      &lt;td&gt;-123.115631&lt;/td&gt;
-      &lt;td&gt;{}&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 3}&lt;/td&gt;
-      &lt;td&gt;{u'81': 3}&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;2289604&lt;/td&gt;
-      &lt;td&gt;433.64&lt;/td&gt;
-      &lt;td&gt;[Terra Savia Winery]&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;unknown&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;8341296&lt;/td&gt;
-      &lt;td&gt;1,579.79&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'693 S Orchard Ave', u'state_na...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;24 hours daily; free for hotel guests. Guests ...&lt;/td&gt;
-      &lt;td&gt;1000016131&lt;/td&gt;
-      &lt;td&gt;108026&lt;/td&gt;
-      &lt;td&gt;20.46&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;39.145802&lt;/td&gt;
-      &lt;td&gt;-123.198494&lt;/td&gt;
-      &lt;td&gt;{}&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 1}&lt;/td&gt;
-      &lt;td&gt;{u'81': 1}&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;2356718&lt;/td&gt;
-      &lt;td&gt;446.35&lt;/td&gt;
-      &lt;td&gt;[Super 8 Ukiah]&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;unknown&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;8334266&lt;/td&gt;
-      &lt;td&gt;1,578.46&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'N Oak &amp;amp; W Standley St', u'stat...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;24 hours daily&lt;/td&gt;
-      &lt;td&gt;1000009079&lt;/td&gt;
-      &lt;td&gt;111394&lt;/td&gt;
-      &lt;td&gt;21.10&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;39.150002&lt;/td&gt;
-      &lt;td&gt;-123.209099&lt;/td&gt;
-      &lt;td&gt;{}&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 3}&lt;/td&gt;
-      &lt;td&gt;{u'81': 3}&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;2359808&lt;/td&gt;
-      &lt;td&gt;446.93&lt;/td&gt;
-      &lt;td&gt;[City of Ukiah - Public Parking Lot]&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;unknown&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;8336360&lt;/td&gt;
-      &lt;td&gt;1,578.86&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;{u'address1': u'21278 Calistoga Rd', u'state_n...&lt;/td&gt;
-      &lt;td&gt;135&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;24 hours daily&lt;/td&gt;
-      &lt;td&gt;1000018605&lt;/td&gt;
-      &lt;td&gt;117353&lt;/td&gt;
-      &lt;td&gt;22.23&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;38.749672&lt;/td&gt;
-      &lt;td&gt;-122.615921&lt;/td&gt;
-      &lt;td&gt;{}&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'available': 0, u'total': 1}&lt;/td&gt;
-      &lt;td&gt;{u'81': 1}&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;{u'honda_program_enabled': 0, u'bmw_program_en...&lt;/td&gt;
-      &lt;td&gt;315&lt;/td&gt;
-      &lt;td&gt;2140509&lt;/td&gt;
-      &lt;td&gt;405.40&lt;/td&gt;
-      &lt;td&gt;[Chef Steve's]&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;unknown&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;open&lt;/td&gt;
-      &lt;td&gt;270&lt;/td&gt;
-      &lt;td&gt;8245510&lt;/td&gt;
-      &lt;td&gt;1,561.65&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;address                       {u&amp;apos;address1&amp;apos;: u&amp;apos;13771 S Highway 101&amp;apos;, u&amp;apos;state_...
+bearing                                                                     270
+can_remote_start_charge                                                     NaN
+community_mode                                                              NaN
+description                                                      10am-6pm daily
+device_id                                                            1000017691
+distance                                                                  73823
+distance_in_mile                                                          13.98
+is_connected                                                                NaN
+lat                                                                     38.9667
+lon                                                                    -123.115
+map_data                                                                     {}
+network_id                                                                    9
+out_of_network                                                                2
+payment_type                                                                NaN
+port_count                                       {u&amp;apos;available&amp;apos;: 0, u&amp;apos;total&amp;apos;: 2}
+port_type_count                                                      {u&amp;apos;89&amp;apos;: 2}
+pricing                                                                     NaN
+program_info                  {u&amp;apos;honda_program_enabled&amp;apos;: 0, u&amp;apos;bmw_program_en...
+reference_bearing                                                           315
+reference_distance                                                      2291286
+reference_distance_in_mile                                               433.96
+station_name                                           [Solar Living Institute]
+station_power_shed_status                                                   NaN
+station_status                                                          unknown
+tip_count                                                                   NaN
+tou_status                                                                 open
+user_bearing                                                                270
+user_distance                                                           8339980
+user_distance_in_mile                                                  1,579.54
+Name: 0, dtype: object
+&lt;/pre&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-
 &lt;/div&gt;
 
 &lt;/div&gt;

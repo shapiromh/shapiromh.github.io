@@ -68,28 +68,14 @@
             </footer><!-- /.post-info -->
             <div class="entry-content">
               <p>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Imports</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Scraping-Tips">Scraping Tips<a class="anchor-link" href="#Scraping-Tips">&#182;</a></h1>
+<p>These examples were created for Joel Waldfogel's class on 29 March 2016. They are illustrative rather than optimized (not that I can necessarily produce optimal scraping code). They are meant to accompany slides, but I have added some extra notes to make them useful to look back on later.</p>
+<p><strong>Author</strong>: Matt Shapiro (shap0157@umn.edu)</p>
+
 </div>
 </div>
 </div>
@@ -103,6 +89,22 @@
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -256,7 +258,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;http://www.boxofficemojo.com/daily/?view=month&amp;yr=2015&amp;filter=mar&amp;p=.htm&#39;</span>
@@ -280,7 +282,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">page_source</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
@@ -324,7 +326,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">page_soup</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">page_source</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span>
@@ -348,7 +350,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s2">&quot;The number of tables in the document is &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">))</span>
@@ -387,7 +389,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">no_cell_space</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cellspacing&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">}))</span>
@@ -433,7 +435,7 @@ The number of tables in the document with this border is  3
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Save the table from the list returned by find_all</span>
@@ -457,7 +459,7 @@ The number of tables in the document with this border is  3
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">data_row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
@@ -507,7 +509,7 @@ $4,598,888
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Set up the dictionary to save the data</span>
@@ -549,7 +551,7 @@ $4,598,888
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">output_pd</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -563,7 +565,7 @@ $4,598,888
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[95]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -687,7 +689,7 @@ $4,598,888
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;jan&#39;</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">,</span> <span class="s1">&#39;may&#39;</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">,</span> 
@@ -726,7 +728,7 @@ $4,598,888
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -805,7 +807,7 @@ $4,598,888
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">topcount</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;top_movie&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>  <span class="c1"># Count how often the movie is the top</span>
@@ -989,7 +991,7 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">base_html</span> <span class="o">=</span> <span class="s1">&#39;https://na.chargepoint.com/dashboard/getChargeSpots&#39;</span>
@@ -1027,7 +1029,7 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_html</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
@@ -1050,7 +1052,7 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">station_results</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1074,7 +1076,7 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">station_results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;station_list&#39;</span><span class="p">][</span><span class="s1">&#39;summaries&#39;</span><span class="p">]</span>
@@ -1088,10 +1090,10 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">station_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -1102,223 +1104,42 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[126]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>address</th>
-      <th>bearing</th>
-      <th>can_remote_start_charge</th>
-      <th>community_mode</th>
-      <th>description</th>
-      <th>device_id</th>
-      <th>distance</th>
-      <th>distance_in_mile</th>
-      <th>is_connected</th>
-      <th>lat</th>
-      <th>lon</th>
-      <th>map_data</th>
-      <th>network_id</th>
-      <th>out_of_network</th>
-      <th>payment_type</th>
-      <th>port_count</th>
-      <th>port_type_count</th>
-      <th>pricing</th>
-      <th>program_ids</th>
-      <th>program_info</th>
-      <th>reference_bearing</th>
-      <th>reference_distance</th>
-      <th>reference_distance_in_mile</th>
-      <th>station_name</th>
-      <th>station_power_shed_status</th>
-      <th>station_status</th>
-      <th>tip_count</th>
-      <th>tou_status</th>
-      <th>user_bearing</th>
-      <th>user_distance</th>
-      <th>user_distance_in_mile</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>{u'address1': u'145 N Broadway', u'state_name'...</td>
-      <td>360</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Garage business hours; pay lot; keypad activat...</td>
-      <td>1000019301</td>
-      <td>1113</td>
-      <td>0.21</td>
-      <td>NaN</td>
-      <td>34.055061</td>
-      <td>-118.245041</td>
-      <td>{}</td>
-      <td>9</td>
-      <td>3</td>
-      <td>NaN</td>
-      <td>{u'available': 0, u'total': 3}</td>
-      <td>{u'81': 3}</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>360</td>
-      <td>1109</td>
-      <td>0.21</td>
-      <td>[Los Angeles Law Library]</td>
-      <td>NaN</td>
-      <td>unknown</td>
-      <td>2</td>
-      <td>open</td>
-      <td>225</td>
-      <td>8036269</td>
-      <td>1,522.02</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>{u'address1': u'235 S Hill St', u'state_name':...</td>
-      <td>270</td>
-      <td>True</td>
-      <td>0</td>
-      <td>Parking Rates Apply: Station is on P1</td>
-      <td>119339</td>
-      <td>1472</td>
-      <td>0.28</td>
-      <td>False</td>
-      <td>34.052670</td>
-      <td>-118.248528</td>
-      <td>{u'level2': {u'paid': {u'available': 2, u'tota...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>paid</td>
-      <td>{u'available': 2, u'total': 2}</td>
-      <td>{u'3': 2}</td>
-      <td>pricing_detail</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>270</td>
-      <td>1472</td>
-      <td>0.28</td>
-      <td>[BROOKFIELD WEST, WFC HILL ST 01]</td>
-      <td>False</td>
-      <td>available</td>
-      <td>1</td>
-      <td>open</td>
-      <td>225</td>
-      <td>8037636</td>
-      <td>1,522.28</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>{u'address1': u'235 S Hill St', u'state_name':...</td>
-      <td>270</td>
-      <td>True</td>
-      <td>0</td>
-      <td>Parking Rates Apply: Stations are on P1 by ent...</td>
-      <td>118935</td>
-      <td>1481</td>
-      <td>0.28</td>
-      <td>False</td>
-      <td>34.052633</td>
-      <td>-118.248562</td>
-      <td>{u'level2': {u'paid': {u'available': 2, u'tota...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>paid</td>
-      <td>{u'available': 2, u'total': 2}</td>
-      <td>{u'3': 2}</td>
-      <td>pricing_detail</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>270</td>
-      <td>1481</td>
-      <td>0.28</td>
-      <td>[BROOKFIELD WEST, WFC HILL ST 02]</td>
-      <td>False</td>
-      <td>available</td>
-      <td>NaN</td>
-      <td>open</td>
-      <td>225</td>
-      <td>8037653</td>
-      <td>1,522.28</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>{u'address1': u'101-115 E 4th St', u'state_nam...</td>
-      <td>225</td>
-      <td>False</td>
-      <td>0</td>
-      <td>9 a.m. - 4:00 p.m. 7 days a week</td>
-      <td>106697</td>
-      <td>1858</td>
-      <td>0.35</td>
-      <td>False</td>
-      <td>34.047854</td>
-      <td>-118.246847</td>
-      <td>{u'level2': {u'paid': {u'available': 0, u'tota...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>paid</td>
-      <td>{u'available': 0, u'total': 1}</td>
-      <td>{u'3': 1}</td>
-      <td>1.00/hr</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>225</td>
-      <td>1861</td>
-      <td>0.35</td>
-      <td>[CITY OF LA, BSL #1]</td>
-      <td>False</td>
-      <td>in_use</td>
-      <td>15</td>
-      <td>open</td>
-      <td>225</td>
-      <td>8038292</td>
-      <td>1,522.40</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>{u'address1': u'225 S Olive St', u'state_name'...</td>
-      <td>270</td>
-      <td>False</td>
-      <td>0</td>
-      <td>Located on right just inside garage, parking f...</td>
-      <td>83233</td>
-      <td>1863</td>
-      <td>0.35</td>
-      <td>False</td>
-      <td>34.053296</td>
-      <td>-118.249713</td>
-      <td>{u'level2': {u'paid': {u'available': 0, u'tota...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>paid</td>
-      <td>{u'available': 0, u'total': 1}</td>
-      <td>{u'3': 1}</td>
-      <td>0.3000/kwh</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>270</td>
-      <td>1862</td>
-      <td>0.35</td>
-      <td>[G&amp;K, MUSEUM TOWERS 2]</td>
-      <td>False</td>
-      <td>in_use</td>
-      <td>NaN</td>
-      <td>open</td>
-      <td>225</td>
-      <td>8037784</td>
-      <td>1,522.31</td>
-    </tr>
-  </tbody>
-</table>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>address                       {u&apos;address1&apos;: u&apos;145 N Broadway&apos;, u&apos;state_name&apos;...
+bearing                                                                     360
+can_remote_start_charge                                                     NaN
+community_mode                                                              NaN
+description                   Garage business hours; pay lot; keypad activat...
+device_id                                                            1000019301
+distance                                                                   1113
+distance_in_mile                                                           0.21
+is_connected                                                                NaN
+lat                                                                     34.0551
+lon                                                                    -118.245
+map_data                                                                     {}
+network_id                                                                    9
+out_of_network                                                                3
+payment_type                                                                NaN
+port_count                                       {u&apos;available&apos;: 0, u&apos;total&apos;: 3}
+port_type_count                                                      {u&apos;81&apos;: 3}
+pricing                                                                     NaN
+program_ids                                                                 NaN
+program_info                  {u&apos;honda_program_enabled&apos;: 0, u&apos;bmw_program_en...
+reference_bearing                                                           360
+reference_distance                                                         1109
+reference_distance_in_mile                                                 0.21
+station_name                                          [Los Angeles Law Library]
+station_power_shed_status                                                   NaN
+station_status                                                          unknown
+tip_count                                                                     2
+tou_status                                                                 open
+user_bearing                                                                225
+user_distance                                                           8036269
+user_distance_in_mile                                                  1,522.02
+Name: 0, dtype: object
+</pre>
 </div>
-</div>
-
 </div>
 
 </div>
@@ -1346,7 +1167,7 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[127]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_stationdata</span><span class="p">(</span><span class="n">ne_lng</span><span class="p">,</span> <span class="n">ne_lat</span><span class="p">,</span> <span class="n">sw_lng</span><span class="p">,</span> <span class="n">sw_lat</span><span class="p">):</span>
@@ -1372,12 +1193,12 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">get_stationdata</span><span class="p">(</span><span class="o">-</span><span class="mf">122.346666667</span><span class="p">,</span> <span class="mf">39.1851851852</span><span class="p">,</span> <span class="o">-</span><span class="mf">123.373333333</span><span class="p">,</span> <span class="mf">38.8333333333</span><span class="p">)</span>
 <span class="n">sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
-<span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">sample</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -1388,217 +1209,41 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[131]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>address</th>
-      <th>bearing</th>
-      <th>can_remote_start_charge</th>
-      <th>community_mode</th>
-      <th>description</th>
-      <th>device_id</th>
-      <th>distance</th>
-      <th>distance_in_mile</th>
-      <th>is_connected</th>
-      <th>lat</th>
-      <th>lon</th>
-      <th>map_data</th>
-      <th>network_id</th>
-      <th>out_of_network</th>
-      <th>payment_type</th>
-      <th>port_count</th>
-      <th>port_type_count</th>
-      <th>pricing</th>
-      <th>program_info</th>
-      <th>reference_bearing</th>
-      <th>reference_distance</th>
-      <th>reference_distance_in_mile</th>
-      <th>station_name</th>
-      <th>station_power_shed_status</th>
-      <th>station_status</th>
-      <th>tip_count</th>
-      <th>tou_status</th>
-      <th>user_bearing</th>
-      <th>user_distance</th>
-      <th>user_distance_in_mile</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>{u'address1': u'13771 S Highway 101', u'state_...</td>
-      <td>270</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>10am-6pm daily</td>
-      <td>1000017691</td>
-      <td>73823</td>
-      <td>13.98</td>
-      <td>NaN</td>
-      <td>38.966724</td>
-      <td>-123.114540</td>
-      <td>{}</td>
-      <td>9</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>{u'available': 0, u'total': 2}</td>
-      <td>{u'89': 2}</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>315</td>
-      <td>2291286</td>
-      <td>433.96</td>
-      <td>[Solar Living Institute]</td>
-      <td>NaN</td>
-      <td>unknown</td>
-      <td>NaN</td>
-      <td>open</td>
-      <td>270</td>
-      <td>8339980</td>
-      <td>1,579.54</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>{u'address1': u'14160 Mountain House Rd', u'st...</td>
-      <td>270</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>9am-5pm daily</td>
-      <td>1000023237</td>
-      <td>74682</td>
-      <td>14.14</td>
-      <td>NaN</td>
-      <td>38.959988</td>
-      <td>-123.115631</td>
-      <td>{}</td>
-      <td>9</td>
-      <td>3</td>
-      <td>NaN</td>
-      <td>{u'available': 0, u'total': 3}</td>
-      <td>{u'81': 3}</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>315</td>
-      <td>2289604</td>
-      <td>433.64</td>
-      <td>[Terra Savia Winery]</td>
-      <td>NaN</td>
-      <td>unknown</td>
-      <td>NaN</td>
-      <td>open</td>
-      <td>270</td>
-      <td>8341296</td>
-      <td>1,579.79</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>{u'address1': u'693 S Orchard Ave', u'state_na...</td>
-      <td>315</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24 hours daily; free for hotel guests. Guests ...</td>
-      <td>1000016131</td>
-      <td>108026</td>
-      <td>20.46</td>
-      <td>NaN</td>
-      <td>39.145802</td>
-      <td>-123.198494</td>
-      <td>{}</td>
-      <td>9</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>{u'available': 0, u'total': 1}</td>
-      <td>{u'81': 1}</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>315</td>
-      <td>2356718</td>
-      <td>446.35</td>
-      <td>[Super 8 Ukiah]</td>
-      <td>NaN</td>
-      <td>unknown</td>
-      <td>NaN</td>
-      <td>open</td>
-      <td>270</td>
-      <td>8334266</td>
-      <td>1,578.46</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>{u'address1': u'N Oak &amp; W Standley St', u'stat...</td>
-      <td>315</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24 hours daily</td>
-      <td>1000009079</td>
-      <td>111394</td>
-      <td>21.10</td>
-      <td>NaN</td>
-      <td>39.150002</td>
-      <td>-123.209099</td>
-      <td>{}</td>
-      <td>9</td>
-      <td>3</td>
-      <td>NaN</td>
-      <td>{u'available': 0, u'total': 3}</td>
-      <td>{u'81': 3}</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>315</td>
-      <td>2359808</td>
-      <td>446.93</td>
-      <td>[City of Ukiah - Public Parking Lot]</td>
-      <td>NaN</td>
-      <td>unknown</td>
-      <td>2</td>
-      <td>open</td>
-      <td>270</td>
-      <td>8336360</td>
-      <td>1,578.86</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>{u'address1': u'21278 Calistoga Rd', u'state_n...</td>
-      <td>135</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24 hours daily</td>
-      <td>1000018605</td>
-      <td>117353</td>
-      <td>22.23</td>
-      <td>NaN</td>
-      <td>38.749672</td>
-      <td>-122.615921</td>
-      <td>{}</td>
-      <td>9</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>{u'available': 0, u'total': 1}</td>
-      <td>{u'81': 1}</td>
-      <td>NaN</td>
-      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
-      <td>315</td>
-      <td>2140509</td>
-      <td>405.40</td>
-      <td>[Chef Steve's]</td>
-      <td>NaN</td>
-      <td>unknown</td>
-      <td>NaN</td>
-      <td>open</td>
-      <td>270</td>
-      <td>8245510</td>
-      <td>1,561.65</td>
-    </tr>
-  </tbody>
-</table>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>address                       {u&apos;address1&apos;: u&apos;13771 S Highway 101&apos;, u&apos;state_...
+bearing                                                                     270
+can_remote_start_charge                                                     NaN
+community_mode                                                              NaN
+description                                                      10am-6pm daily
+device_id                                                            1000017691
+distance                                                                  73823
+distance_in_mile                                                          13.98
+is_connected                                                                NaN
+lat                                                                     38.9667
+lon                                                                    -123.115
+map_data                                                                     {}
+network_id                                                                    9
+out_of_network                                                                2
+payment_type                                                                NaN
+port_count                                       {u&apos;available&apos;: 0, u&apos;total&apos;: 2}
+port_type_count                                                      {u&apos;89&apos;: 2}
+pricing                                                                     NaN
+program_info                  {u&apos;honda_program_enabled&apos;: 0, u&apos;bmw_program_en...
+reference_bearing                                                           315
+reference_distance                                                      2291286
+reference_distance_in_mile                                               433.96
+station_name                                           [Solar Living Institute]
+station_power_shed_status                                                   NaN
+station_status                                                          unknown
+tip_count                                                                   NaN
+tou_status                                                                 open
+user_bearing                                                                270
+user_distance                                                           8339980
+user_distance_in_mile                                                  1,579.54
+Name: 0, dtype: object
+</pre>
 </div>
-</div>
-
 </div>
 
 </div>
@@ -1653,9 +1298,7 @@ the <span style="color:red">Network Tool</span> tab in the same tool box housing
 
 <h4>Categories</h4>
 <ul>
-		<li><a href="https://shapiromh.github.io/category/misc.html">misc</a></li>
 		<li><a href="https://shapiromh.github.io/category/scraping.html">scraping</a></li>
-		<li><a href="https://shapiromh.github.io/category/testing.html">testing</a></li>
 </ul>
 
 
