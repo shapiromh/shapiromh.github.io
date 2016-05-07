@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <title>A Short Introduction to Scraping</title>
+        <meta charset="utf-8" />
+        <link href="https://shapiromh.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Anything But Economist Full Atom Feed" />
+        <link href="https://shapiromh.github.io/feeds/scraping.atom.xml" type="application/atom+xml" rel="alternate" title="Anything But Economist Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="https://shapiromh.github.io/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="https://shapiromh.github.io/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="https://shapiromh.github.io/theme/pygment.css" />
+
+        <script src="https://shapiromh.github.io/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="https://shapiromh.github.io">Anything But Economist <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="https://shapiromh.github.io">Home</a></li>
+
+                <li><a href="http://shapiromh.com">Academic Site</a></li>
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="https://shapiromh.github.io/scraping-summary.html" rel="bookmark"
+                   title="Permalink to A Short Introduction to Scraping">A Short Introduction to Scraping</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2016-05-07T14:01:00-05:00">
+                Sat 07 May 2016
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="https://shapiromh.github.io/author/matthew-h-shapiro.html">Matthew H. Shapiro</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Scraping-Tips">Scraping Tips<a class="anchor-link" href="#Scraping-Tips">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p><a id='basic'></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Basic-Example">Basic Example<a class="anchor-link" href="#Basic-Example">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Example switched to Box Office Mojo because the original required private account information.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example-Features">Example Features<a class="anchor-link" href="#Example-Features">&#182;</a></h3><ul>
+<li>Easy to see in website url what should be manipulated to access all desired sites</li>
+<li>Desired data nicely laid out on each page without variation in format</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Scraping-Goal">Scraping Goal<a class="anchor-link" href="#Scraping-Goal">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Suppose I would like to collect the Number 1 grossing movie worldwide and its gross revenue by day for all available dates. Box Office Mojo provides this information on their box office <a href="http://www.boxofficemojo.com/daily/?view=month&yr=2015&filter=jan&p=.htm">daily pages</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-1:-Determine-how-to-reach-sites-with-desired-data">Step 1: Determine how to reach sites with desired data<a class="anchor-link" href="#Step-1:-Determine-how-to-reach-sites-with-desired-data">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The example site url above</p>
+<p><a href="http://www.boxofficemojo.com/daily/?view=month&amp;yr=2015&amp;filter=jan&amp;p=.htm">http://www.boxofficemojo.com/daily/?view=month&amp;yr=2015&amp;filter=jan&amp;p=.htm</a></p>
+<p>suggests a simple pattern to changing parameters (In the next example we see that the url actually exposes the website's API to accessing these daily top grossers). Importantly <strong>yr=</strong> likely changes the year and <strong>filter=</strong> the month. Very little digging and clicking verifies the guess. For example,</p>
+<p><a href="http://www.boxofficemojo.com/daily/?view=month&amp;yr=2013&amp;filter=mar&amp;p=.htm">http://www.boxofficemojo.com/daily/?view=month&amp;yr=2013&amp;filter=mar&amp;p=.htm</a></p>
+<p>is a link to the top daily movies in March 2013. Finally a few seconds of work indicates the values <strong>filter</strong> will take are: jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec.</p>
+<p>That should be all the information needed to access the data I want.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-2:-Figure-out-how-to-access-the-data">Step 2: Figure out how to access the data<a class="anchor-link" href="#Step-2:-Figure-out-how-to-access-the-data">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Web-Inspection">Web Inspection<a class="anchor-link" href="#Web-Inspection">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By first appearances the data look nicely laid out in an html table format, a best case scenario when trying to rip out data from its comfortable home on the web. Python, specifically the Beautiful Soup module, reads the web page as the text of the <strong>page source</strong>. The fun or usually frustrating part of this step is how to tell the module where to look for the desired data. Before transferring all work over to python, it is good to use the incredibly handy <span style="color:red">Web Inspector</span> available on most browsers. I highly recommend Firefox for this work.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the image below, I have my inspector on the right hand side of my browser. The box on the top right is the page source presented in a convenient format with expandable and collapsable nested elements. More importantly, as the cursor moves over various html elements, the relevant area on the web page is highlighted, as illustrated in the image below.</p>
+<p><img src='images/mojo1.png'></p>
+<p>Even with very little knowledge of html, the tool makes it easy to figure out what data table looks like in the page source. Scrolling through I can eventually figure out where the table is in the page source, as illustrated below.</p>
+<p>The reason html tables are so convenient, however, is that they have a common format across the web. In particular, they start with the <strong><span style="color:blue">table</span></strong> tag. The content of the table is nested in the <strong><span style="color:blue">tbody</span></strong> element (occasionally table headers reside elsewhere). The table format then lists rows (<strong><span style="color:blue">tr</span></strong> tag) with columns separately listed in each row (<strong><span style="color:blue">td</span></strong> tag). This format structure should be visible in the image below. The first column element is also expanded to expose that the text I want to extract resides in between the start and ending column tags. Notice the text <strong>Row</strong>.</p>
+<p><img src='images/mojo2.png'></p>
+<p><strong><span style="text-decoration:underline">Resource</span></strong></p>
+<p>One only requires limited html literacy to get started with this style of parsing and identifying elements in a webpage. <a href="https://www.codecademy.com/">Code Academy</a> provides a good introduction that can be finished in one or two sittings.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Wrap-Python-Around-the-Problem">Wrap Python Around the Problem<a class="anchor-link" href="#Wrap-Python-Around-the-Problem">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I have not closed my browser yet, but I have enough information to try to start the scraping process. I will start by making a test case for the March 2015 data going from the website to my pandas dataset before automating.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="1)-Get-the-page-source">1) Get the page source<a class="anchor-link" href="#1)-Get-the-page-source">&#182;</a></h4><p>The <span style="color:red">Requests</span> module fits most of my needs when trying to access content on the web. The online documentation is eventually worth a read, but basic usage is incredibly simple. Here, I want to get the content of the March 2015 daily gross data from Box Office Mojo, a feat which I accomplish by using the <strong>get</strong> function of the requests module. In this case the content my request will return is the  page source (an html document) of the site I see in my browser when I follow the link. This will not be the case in the next example.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;http://www.boxofficemojo.com/daily/?view=month&amp;yr=2015&amp;filter=mar&amp;p=.htm&#39;</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>  <span class="c1"># Most sites can be accessed via the get function</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>r</strong> saves the response I got from my request to the site. The data I am interested in is accessible via the content attribute, i.e. <strong>r.content</strong>. Typing in <strong>r.content</strong> in python would return the entire html document. Just to illustrate that I indeed got the page source, I print the first few lines of the content I received. It can be matched up to the top of the html in my web inspector.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">page_source</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">page_source</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="n">line</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;Daily Box Office Results Index - Box Office Mojo&lt;/TITLE&gt;
+&lt;META NAME=&quot;keywords&quot; CONTENT=&quot;daily box office, box, office, daily, result, results, number, numbers, receipt, receipts, revenue, report, movie, film&quot;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2)-Beautiful-Soupify">2) Beautiful Soupify<a class="anchor-link" href="#2)-Beautiful-Soupify">&#182;</a></h4><p>With the page source in hand (saved in the variable <strong>page_source</strong>), I can now utilize <span style="color:red">Beautiful Soup</span>. Notice at the top of the document I imported the <strong>BeautifulSoup</strong> function as <strong>bs</strong>. I have nothing against the function, save that the name is cumbersome to type.</p>
+<p>The function will take as its argument an html page source (in string format) and spit out a easily navigable BeautifulSoup object, saved in <strong>page_soup</strong>. The second argument to the <strong>bs</strong> function is the parsing tool Beautiful Soup should use, here <strong>"lxml"</strong>. The argument is not strictly necessary, but for newer web pages (those written in html5 format) <strong>"html5lib"</strong> should be used instead. Usually I figure out which is correct by trial and unexpected, unreasonable error.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">page_soup</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">page_source</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The best way to get started with Beautiful Soup is to read the documentation. I will provide a crash course.</p>
+<p>The main function I am interested in is <strong>find_all</strong>. The first argument of this function is an html tag. The function will then return a <strong>list</strong> of all elements in the page source beginning with that tag AND the nested elements. For example, I know I am interested in a table on the BOM site, an element which starts with tag "table". Hopefully, there is only one table in the whole document so I can parse the correct one.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s2">&quot;The number of tables in the document is &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The number of tables in the document is  3
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A common problem is  <em>just</em> specifying "table" will not guarantee I only pick up the table I want. Now I need to figure out some unique <strong>attribute</strong> of the specific table tag I want.</p>
+<p>Tag attributes follow as XXX=value. For example, the table tag from above has three attributes: cellspacing (=1), cellpadding (=5), border (=0). Ideally the table would have some clearly obvious unique identifier, like an id or summary. Here, I will hope that one of these three attributes will do the job.</p>
+<p>My Beautiful Soup object's find_all function can take a keyword argument <strong>attrs</strong> fed as a dictionary with the attribute name as the key and attribute value as corresponding value. For illustration I will try the find_all using each of the attributes of my table one at a time, though I could specify multiple attributes at once.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">no_cell_space</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cellspacing&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">}))</span>
+<span class="k">print</span> <span class="s2">&quot;The number of tables in the document with this cellspacing is &quot;</span><span class="p">,</span> <span class="n">no_cell_space</span>
+
+<span class="n">no_cell_pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cellpadding&#39;</span><span class="p">:</span> <span class="s1">&#39;5&#39;</span><span class="p">}))</span>
+<span class="k">print</span> <span class="s2">&quot;The number of tables in the document with this cellpadding is &quot;</span><span class="p">,</span> <span class="n">no_cell_pad</span>
+
+<span class="n">no_border</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">}))</span>
+<span class="k">print</span> <span class="s2">&quot;The number of tables in the document with this border is &quot;</span><span class="p">,</span> <span class="n">no_border</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The number of tables in the document with this cellspacing is  1
+The number of tables in the document with this cellpadding is  1
+The number of tables in the document with this border is  3
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Specifying either the cellspacing or cellpadding seems to do the job. For a lengthy application I would feel uncomfortable assuming "cellpadding" will uniquely identify my table on all pages, but it is fine for illustration and happens to work in the end.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Save the table from the list returned by find_all</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cellspacing&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>  
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <strong>table</strong> variable is now just the part of the page source that is the table I want. At this point everything is smooth sailing since I already figured out how the table is laid out. The first of the rows, indicated with <strong>tr</strong> tags, is the header row, and all others contain the data I want. Before stripping the table I will illustrate how to loop through the table rows and columns using the first row of data, or the second row in the table.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">data_row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">data_cols</span> <span class="o">=</span> <span class="n">data_row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)</span>  <span class="c1"># List of columns in the first data row</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">data_cols</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">column</span><span class="o">.</span><span class="n">text</span>  <span class="c1"># Access the text in each column</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+Mar. 1
+Sun
+60
+$22,582,146
+-43.9%
+-17.4%
+46
+Focus
+$4,598,888
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>My ultimate goal is to save the data into a <span style="color:red">Pandas</span> DataFrame to do some interesting analysis with the data. A good intermediate location to save the data, however, is a python <strong>dictionary</strong>. Below, I will create a dictionary of lists where the dictionary keys are the titles I want for my table headers. I will fill the dictionary by looping through the rows of the table and appending the text of the rows' columns to the appropriate list in this dictionary. Moving the data to a DataFrame is one extra step at the end.</p>
+<p>Ultimately, the best method to save the data depends on the context.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Set up the dictionary to save the data</span>
+<span class="n">output_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;row&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;day_no&#39;</span><span class="p">,</span> <span class="s1">&#39;top10_gross&#39;</span><span class="p">,</span> <span class="s1">&#39;change_yesterday&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;change_lastweek&#39;</span><span class="p">,</span> <span class="s1">&#39;movies_tracked&#39;</span><span class="p">,</span> <span class="s1">&#39;top_movie&#39;</span><span class="p">,</span> <span class="s1">&#39;top_gross&#39;</span><span class="p">]</span>
+<span class="n">output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">output_columns</span><span class="p">)</span>
+
+<span class="c1"># Ignore the first row because it has the header data</span>
+<span class="n">all_rows</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">all_rows</span><span class="p">:</span>
+    <span class="n">row_cols</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Loop through the columns and output keys to populate dictionary</span>
+    <span class="k">for</span> <span class="n">dict_key</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">output_columns</span><span class="p">,</span> <span class="n">row_cols</span><span class="p">):</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">dict_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        
+
+<span class="c1"># Put output into a DataFrame and rearrange columns in desired order</span>
+<span class="n">output_pd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="n">output_pd</span> <span class="o">=</span> <span class="n">output_pd</span><span class="p">[</span><span class="n">output_columns</span><span class="p">]</span>
+<span class="n">output_pd</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2015</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the DataFrame the output is easy to manipulate. For now I just want to check that I retrieved my data as intended. Since the test case seems to have worked, I am almost ready for the final script.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">output_pd</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[95]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>row</th>
+      <th>date</th>
+      <th>day</th>
+      <th>day_no</th>
+      <th>top10_gross</th>
+      <th>change_yesterday</th>
+      <th>change_lastweek</th>
+      <th>movies_tracked</th>
+      <th>top_movie</th>
+      <th>top_gross</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Mar. 1</td>
+      <td>Sun</td>
+      <td>60</td>
+      <td>$22,582,146</td>
+      <td>-43.9%</td>
+      <td>-17.4%</td>
+      <td>46</td>
+      <td>Focus</td>
+      <td>$4,598,888</td>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Mar. 2</td>
+      <td>Mon</td>
+      <td>61</td>
+      <td>$6,284,967</td>
+      <td>-72.2%</td>
+      <td>-14.9%</td>
+      <td>46</td>
+      <td>Focus</td>
+      <td>$1,518,217</td>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Mar. 3</td>
+      <td>Tue</td>
+      <td>62</td>
+      <td>$7,455,929</td>
+      <td>+18.6%</td>
+      <td>-20.9%</td>
+      <td>46</td>
+      <td>Focus</td>
+      <td>$1,860,439</td>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Mar. 4</td>
+      <td>Wed</td>
+      <td>63</td>
+      <td>$5,557,631</td>
+      <td>-25.5%</td>
+      <td>-19.0%</td>
+      <td>46</td>
+      <td>Focus</td>
+      <td>$1,286,208</td>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Mar. 5</td>
+      <td>Thu</td>
+      <td>64</td>
+      <td>$5,703,536</td>
+      <td>+2.6%</td>
+      <td>-20.4%</td>
+      <td>44</td>
+      <td>Focus</td>
+      <td>$1,203,495</td>
+      <td>2015</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3)-Automation-Prep">3) Automation Prep<a class="anchor-link" href="#3)-Automation-Prep">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The only additional step I need to make in the automation is programmatically changing the site url. Creating the list of 'jan' through 'dec' and years 2015 to 2002 is easy using the python module <strong>itertools</strong>. For simplicity, however, I will construct this list using loops.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;jan&#39;</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">,</span> <span class="s1">&#39;may&#39;</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;jul&#39;</span><span class="p">,</span> <span class="s1">&#39;aug&#39;</span><span class="p">,</span> <span class="s1">&#39;sep&#39;</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">]</span>
+<span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2002</span><span class="p">,</span> <span class="mi">2016</span><span class="p">)</span>  <span class="c1"># Note this list stops at 2015</span>
+
+<span class="n">month_years</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+        <span class="n">month_years</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="4)-Final-Script">4) Final Script<a class="anchor-link" href="#4)-Final-Script">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, I have everything I need to automate the whole process. Here is my script to download all the data, although I leave out the step saving the data to my local drive. The contents of the following cell should work in a standalone python script.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
+
+
+<span class="k">def</span> <span class="nf">get_site</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the page source for BOM top daily gross corresponding to month and year </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;http://www.boxofficemojo.com/daily/?view=month&amp;yr={}&amp;filter={}&amp;p=.htm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>  <span class="c1"># Most sites can be accessed via the get function</span>
+    
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+
+
+<span class="k">def</span> <span class="nf">parse_source</span><span class="p">(</span><span class="n">page_source</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a page source, return a DataFrame with the parsed data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">page_soup</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">page_source</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">page_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cellspacing&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>  
+    
+    <span class="n">output_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;row&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;day_no&#39;</span><span class="p">,</span> <span class="s1">&#39;top10_gross&#39;</span><span class="p">,</span> <span class="s1">&#39;change_yesterday&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;change_lastweek&#39;</span><span class="p">,</span> <span class="s1">&#39;movies_tracked&#39;</span><span class="p">,</span> <span class="s1">&#39;top_movie&#39;</span><span class="p">,</span> <span class="s1">&#39;top_gross&#39;</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">output_columns</span><span class="p">)</span>
+
+    <span class="n">all_rows</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">all_rows</span><span class="p">:</span>
+        <span class="n">row_cols</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dict_key</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">output_columns</span><span class="p">,</span> <span class="n">row_cols</span><span class="p">):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">dict_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">output_pd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="n">output_pd</span> <span class="o">=</span> <span class="n">output_pd</span><span class="p">[</span><span class="n">output_columns</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">output_pd</span>
+
+
+<span class="c1"># -- Main Loop </span>
+
+<span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;jan&#39;</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">,</span> <span class="s1">&#39;may&#39;</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;jul&#39;</span><span class="p">,</span> <span class="s1">&#39;aug&#39;</span><span class="p">,</span> <span class="s1">&#39;sep&#39;</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">]</span>
+<span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2002</span><span class="p">,</span> <span class="mi">2016</span><span class="p">)</span>  <span class="c1"># Note this list stops at 2015</span>
+
+<span class="n">month_years</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+        <span class="n">month_years</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">))</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">month_years</span><span class="p">:</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">get_site</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+    <span class="n">source_out</span> <span class="o">=</span> <span class="n">parse_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">source_out</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source_out</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From here output can easily be saved to a number of data formats or manipulated as a DataFrame to clean up some of the data first, e.g. turning gross values into numbers rather than strings. Investing in pandas is worth it to facilitate handling the data once it is scraped and parsed.</p>
+<p>For now, though, here is a simple example of how easy it is to go from scraping to analysis. Since 2002 which movies have maintained the top daily gross spot the longest?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">topcount</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;top_movie&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>  <span class="c1"># Count how often the movie is the top</span>
+<span class="n">topcount</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> 
+
+<span class="k">print</span> <span class="n">topcount</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>top_movie
+Avatar                     52
+Passion of the Christ      33
+The Martian                30
+Guardians of the Galaxy    30
+Return of the King         29
+dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p><a id='second'></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Second-Example">Second Example<a class="anchor-link" href="#Second-Example">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example-Features">Example Features<a class="anchor-link" href="#Example-Features">&#182;</a></h3><ul>
+<li>Not obvious what url would lead to the site with desired data</li>
+<li>Desired data not cleanly laid out anywhere on web site (but must exist somehow!)</li>
+<li>API hunting</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Scraping-Goal">Scraping Goal<a class="anchor-link" href="#Scraping-Goal">&#182;</a></h3><p><a href="https://na.chargepoint.com/charge_point">Chargepoint</a> offers data on usage of charging stations throughout the day. I need the precise location of each charging station and its occupancy status. While I eventually want a program that can get all available data across California several times a day, I will illustrate here how to find and to access the desired data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="API-Hunting">API Hunting<a class="anchor-link" href="#API-Hunting">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Initial-Exploration">Initial Exploration<a class="anchor-link" href="#Initial-Exploration">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Trying to use the techniques from the first example will quickly come up short here. Below is a snapshot of the site.</p>
+<p><img src='images/charge1.png'></p>
+<p>The site aggregates many stations into bubbles on the embedded map indicating total stations and usage, the latter via the percent of the green ring colored out white. The data on the right is limited to only a few stations. I first check what the bubbles look like in the page source (via the Web Inspector) to see if there is any useful information.</p>
+<p>The <strong>div</strong> element corresponding to the 62 stations has some potentially decipherable information, like pixel location, and the class "progress-radial2 progress-74" of the nested element could be used to tell me how many 
+stations are currently occupied. There is no data to tell me precise station lcoations, however, and frankly translating pixel data into geo locations would be a nightmare.</p>
+<p><img src='images/charge2.png'></p>
+<p>I also notice that the url does not change with location. I can automate inserting addresses via a browser automator like <strong>Selenium</strong>, but that process is slow.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Web-Traffic-Exploration">Web Traffic Exploration<a class="anchor-link" href="#Web-Traffic-Exploration">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Despite the mess that appears on the site visible to the public, I am optimistic the underlying data I want is transmitted from the web site's server before being aggregating into the bubbles I see. To test my theory I check
+the <span style="color:red">Network Tool</span> tab in the same tool box housing the web inspector. The network tool captures all the requests my browser makes to the site's server, including any specific requests which might house the data I want.</p>
+<p>With Firefox's network tool I can filter the mess of results that pop up. Generally, the "html" and "xhr" filters are the only relevant types that carry text data. I see my browser is making several get and post requests called "getMapData" and "getChargeSpots" which seem like reasonable places to find the data I want.</p>
+<p>Inspecting these requests yields a wealth of information to sift through in the bottom panel of my network tab. I am interested in "Headers", "Params", and "Response."</p>
+<p><img src='images/charge3.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The "Response" tab shows what the server is sending back from this particular request. Luckily I see that not only are the data I am looking in this response, but the data is returned in a nicely formatted JSON object. When I eventually use <span style="color:red">Requests</span>, the JSON content will be returned to as a Python dictionary. First, I need to figure out how to access the content.</p>
+<p><img src='images/charge4.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Under the "Headers" tab the enormous "Request URL" exposes the API to get this station data. I am looking for</p>
+<ol>
+<li>A base url</li>
+<li>Parameters of the request</li>
+</ol>
+<p>Sometimes the "Request URL" is the base url (see "getMapData" in the network tool for an example); often the url already includes the parameters of the specific request. To extract the base url a good rule of thumb is just take everything before the first "?" in the "Request URL". Hence the base url is</p>
+<p><a href="https://na.chargepoint.com/dashboard/getChargeSpots">https://na.chargepoint.com/dashboard/getChargeSpots</a></p>
+<p>The final relevant tab is "Params." It should show the settings of all the parameters in the specific request.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Moving-to-Python">Moving to Python<a class="anchor-link" href="#Moving-to-Python">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The only additional function of Requests I need to use now is the <strong>params</strong> keyword argument of the get function. Params takes a dictionary argument -- though some websites could require a JSON argument -- as illustrated below. To construct my initial parameters, I just copied the keys and values over from network tool.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">base_html</span> <span class="o">=</span> <span class="s1">&#39;https://na.chargepoint.com/dashboard/getChargeSpots&#39;</span>
+<span class="n">param</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_&#39;</span><span class="p">:</span> <span class="s1">&#39;1458059736670&#39;</span><span class="p">,</span> <span class="s1">&#39;community&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;driver_filters&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_available&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;f_blink&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_chademo&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_cp&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;f_estimationfee&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_evgo&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_free&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;f_l1&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_l2&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_saecombo&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;f_semacharge&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;f_tesla&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="s1">&#39;34.0522342&#39;</span><span class="p">,</span> <span class="s1">&#39;lng&#39;</span><span class="p">:</span> <span class="s1">&#39;-118.2436849&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;ne_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;34.09489130878547&#39;</span><span class="p">,</span> <span class="s1">&#39;ne_lng&#39;</span><span class="p">:</span> <span class="s1">&#39;-118.13030256052247&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;sw_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;34.00955561686954&#39;</span><span class="p">,</span> <span class="s1">&#39;sw_lng&#39;</span><span class="p">:</span> <span class="s1">&#39;-118.35706723947754&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;non_community&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;scHeight&#39;</span><span class="p">:</span> <span class="s1">&#39;870&#39;</span><span class="p">,</span> <span class="s1">&#39;scWidth&#39;</span><span class="p">:</span> <span class="s1">&#39;1369&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;search_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;34.0522342&#39;</span><span class="p">,</span> <span class="s1">&#39;search_lng&#39;</span><span class="p">:</span> <span class="s1">&#39;-118.2436849&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;show_mode1_only&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="s1">&#39;show_mode2_only&#39;</span><span class="p">:</span> <span class="s1">&#39;false&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;sort_by&#39;</span><span class="p">:</span> <span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;user_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;44.9694657&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;user_lng&#39;</span><span class="p">:</span> <span class="s1">&#39;-93.2443818&#39;</span><span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is then straightforward to apply this to the get function.</p>
+<p>As a side note, another important Requests function is "post". Some server data might be accessed via the "post" method rather than "get" method. Notice the network tool also indicates which method should be used by "Request method" under the "Headers" tab. "getMapData", for example, uses POST instead of GET.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_html</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Instead of using the content attribute of <strong>r</strong>, which will return the JSON data in a string, I can bypass the step and take advantage of the <strong>json</strong> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">station_results</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When I looked at the response of this request in Firefox, I noticed I had to drill down a few levels to get to the charging station summaries I actually needed. <strong>station_results</strong> is not a format immediately compatible with a DataFrame, but the list of stations happens to work out somewhat nicely in this case.</p>
+<p>Looking at the result some data is still in an odd format, e.g. address and the data I want in port count, but this issue can easily be fixed up with Pandas later. For now, I am happy to simply collect the results.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">station_results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;station_list&#39;</span><span class="p">][</span><span class="s1">&#39;summaries&#39;</span><span class="p">]</span>
+<span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">station_data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[126]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>bearing</th>
+      <th>can_remote_start_charge</th>
+      <th>community_mode</th>
+      <th>description</th>
+      <th>device_id</th>
+      <th>distance</th>
+      <th>distance_in_mile</th>
+      <th>is_connected</th>
+      <th>lat</th>
+      <th>lon</th>
+      <th>map_data</th>
+      <th>network_id</th>
+      <th>out_of_network</th>
+      <th>payment_type</th>
+      <th>port_count</th>
+      <th>port_type_count</th>
+      <th>pricing</th>
+      <th>program_ids</th>
+      <th>program_info</th>
+      <th>reference_bearing</th>
+      <th>reference_distance</th>
+      <th>reference_distance_in_mile</th>
+      <th>station_name</th>
+      <th>station_power_shed_status</th>
+      <th>station_status</th>
+      <th>tip_count</th>
+      <th>tou_status</th>
+      <th>user_bearing</th>
+      <th>user_distance</th>
+      <th>user_distance_in_mile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{u'address1': u'145 N Broadway', u'state_name'...</td>
+      <td>360</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Garage business hours; pay lot; keypad activat...</td>
+      <td>1000019301</td>
+      <td>1113</td>
+      <td>0.21</td>
+      <td>NaN</td>
+      <td>34.055061</td>
+      <td>-118.245041</td>
+      <td>{}</td>
+      <td>9</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>{u'available': 0, u'total': 3}</td>
+      <td>{u'81': 3}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>360</td>
+      <td>1109</td>
+      <td>0.21</td>
+      <td>[Los Angeles Law Library]</td>
+      <td>NaN</td>
+      <td>unknown</td>
+      <td>2</td>
+      <td>open</td>
+      <td>225</td>
+      <td>8036269</td>
+      <td>1,522.02</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{u'address1': u'235 S Hill St', u'state_name':...</td>
+      <td>270</td>
+      <td>True</td>
+      <td>0</td>
+      <td>Parking Rates Apply: Station is on P1</td>
+      <td>119339</td>
+      <td>1472</td>
+      <td>0.28</td>
+      <td>False</td>
+      <td>34.052670</td>
+      <td>-118.248528</td>
+      <td>{u'level2': {u'paid': {u'available': 2, u'tota...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>paid</td>
+      <td>{u'available': 2, u'total': 2}</td>
+      <td>{u'3': 2}</td>
+      <td>pricing_detail</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>270</td>
+      <td>1472</td>
+      <td>0.28</td>
+      <td>[BROOKFIELD WEST, WFC HILL ST 01]</td>
+      <td>False</td>
+      <td>available</td>
+      <td>1</td>
+      <td>open</td>
+      <td>225</td>
+      <td>8037636</td>
+      <td>1,522.28</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{u'address1': u'235 S Hill St', u'state_name':...</td>
+      <td>270</td>
+      <td>True</td>
+      <td>0</td>
+      <td>Parking Rates Apply: Stations are on P1 by ent...</td>
+      <td>118935</td>
+      <td>1481</td>
+      <td>0.28</td>
+      <td>False</td>
+      <td>34.052633</td>
+      <td>-118.248562</td>
+      <td>{u'level2': {u'paid': {u'available': 2, u'tota...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>paid</td>
+      <td>{u'available': 2, u'total': 2}</td>
+      <td>{u'3': 2}</td>
+      <td>pricing_detail</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>270</td>
+      <td>1481</td>
+      <td>0.28</td>
+      <td>[BROOKFIELD WEST, WFC HILL ST 02]</td>
+      <td>False</td>
+      <td>available</td>
+      <td>NaN</td>
+      <td>open</td>
+      <td>225</td>
+      <td>8037653</td>
+      <td>1,522.28</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{u'address1': u'101-115 E 4th St', u'state_nam...</td>
+      <td>225</td>
+      <td>False</td>
+      <td>0</td>
+      <td>9 a.m. - 4:00 p.m. 7 days a week</td>
+      <td>106697</td>
+      <td>1858</td>
+      <td>0.35</td>
+      <td>False</td>
+      <td>34.047854</td>
+      <td>-118.246847</td>
+      <td>{u'level2': {u'paid': {u'available': 0, u'tota...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>paid</td>
+      <td>{u'available': 0, u'total': 1}</td>
+      <td>{u'3': 1}</td>
+      <td>1.00/hr</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>225</td>
+      <td>1861</td>
+      <td>0.35</td>
+      <td>[CITY OF LA, BSL #1]</td>
+      <td>False</td>
+      <td>in_use</td>
+      <td>15</td>
+      <td>open</td>
+      <td>225</td>
+      <td>8038292</td>
+      <td>1,522.40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{u'address1': u'225 S Olive St', u'state_name'...</td>
+      <td>270</td>
+      <td>False</td>
+      <td>0</td>
+      <td>Located on right just inside garage, parking f...</td>
+      <td>83233</td>
+      <td>1863</td>
+      <td>0.35</td>
+      <td>False</td>
+      <td>34.053296</td>
+      <td>-118.249713</td>
+      <td>{u'level2': {u'paid': {u'available': 0, u'tota...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>paid</td>
+      <td>{u'available': 0, u'total': 1}</td>
+      <td>{u'3': 1}</td>
+      <td>0.3000/kwh</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>270</td>
+      <td>1862</td>
+      <td>0.35</td>
+      <td>[G&amp;K, MUSEUM TOWERS 2]</td>
+      <td>False</td>
+      <td>in_use</td>
+      <td>NaN</td>
+      <td>open</td>
+      <td>225</td>
+      <td>8037784</td>
+      <td>1,522.31</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Using-the-API">Using the API<a class="anchor-link" href="#Using-the-API">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I managed to collect the data for the specific example I took from my browser, but I still need to figure out how to manipulate the parameters of my request to find the station data for arbitrary locations. A bit of experimentation reveals I need to change the "ne_lat", "ne_lng", "sw_lat", "sw_lng" parameters (oddly not "lat" and "lng"), which should be specifying the rectangle within which the server is providing me with station data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[127]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_stationdata</span><span class="p">(</span><span class="n">ne_lng</span><span class="p">,</span> <span class="n">ne_lat</span><span class="p">,</span> <span class="n">sw_lng</span><span class="p">,</span> <span class="n">sw_lat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function adjusts the station search bounding box and returns a list of station data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Retrieve</span>
+    <span class="n">base_html</span> <span class="o">=</span> <span class="s1">&#39;https://na.chargepoint.com/dashboard/getChargeSpots&#39;</span>
+    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ne_lng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ne_lng</span>
+    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;ne_lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ne_lat</span>
+    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;sw_lng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sw_lng</span>
+    <span class="n">param</span><span class="p">[</span><span class="s1">&#39;sw_lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sw_lat</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_html</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+                
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;station_list&#39;</span><span class="p">][</span><span class="s1">&#39;summaries&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">get_stationdata</span><span class="p">(</span><span class="o">-</span><span class="mf">122.346666667</span><span class="p">,</span> <span class="mf">39.1851851852</span><span class="p">,</span> <span class="o">-</span><span class="mf">123.373333333</span><span class="p">,</span> <span class="mf">38.8333333333</span><span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[131]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>bearing</th>
+      <th>can_remote_start_charge</th>
+      <th>community_mode</th>
+      <th>description</th>
+      <th>device_id</th>
+      <th>distance</th>
+      <th>distance_in_mile</th>
+      <th>is_connected</th>
+      <th>lat</th>
+      <th>lon</th>
+      <th>map_data</th>
+      <th>network_id</th>
+      <th>out_of_network</th>
+      <th>payment_type</th>
+      <th>port_count</th>
+      <th>port_type_count</th>
+      <th>pricing</th>
+      <th>program_info</th>
+      <th>reference_bearing</th>
+      <th>reference_distance</th>
+      <th>reference_distance_in_mile</th>
+      <th>station_name</th>
+      <th>station_power_shed_status</th>
+      <th>station_status</th>
+      <th>tip_count</th>
+      <th>tou_status</th>
+      <th>user_bearing</th>
+      <th>user_distance</th>
+      <th>user_distance_in_mile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{u'address1': u'13771 S Highway 101', u'state_...</td>
+      <td>270</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10am-6pm daily</td>
+      <td>1000017691</td>
+      <td>73823</td>
+      <td>13.98</td>
+      <td>NaN</td>
+      <td>38.966724</td>
+      <td>-123.114540</td>
+      <td>{}</td>
+      <td>9</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>{u'available': 0, u'total': 2}</td>
+      <td>{u'89': 2}</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>315</td>
+      <td>2291286</td>
+      <td>433.96</td>
+      <td>[Solar Living Institute]</td>
+      <td>NaN</td>
+      <td>unknown</td>
+      <td>NaN</td>
+      <td>open</td>
+      <td>270</td>
+      <td>8339980</td>
+      <td>1,579.54</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{u'address1': u'14160 Mountain House Rd', u'st...</td>
+      <td>270</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>9am-5pm daily</td>
+      <td>1000023237</td>
+      <td>74682</td>
+      <td>14.14</td>
+      <td>NaN</td>
+      <td>38.959988</td>
+      <td>-123.115631</td>
+      <td>{}</td>
+      <td>9</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>{u'available': 0, u'total': 3}</td>
+      <td>{u'81': 3}</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>315</td>
+      <td>2289604</td>
+      <td>433.64</td>
+      <td>[Terra Savia Winery]</td>
+      <td>NaN</td>
+      <td>unknown</td>
+      <td>NaN</td>
+      <td>open</td>
+      <td>270</td>
+      <td>8341296</td>
+      <td>1,579.79</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{u'address1': u'693 S Orchard Ave', u'state_na...</td>
+      <td>315</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>24 hours daily; free for hotel guests. Guests ...</td>
+      <td>1000016131</td>
+      <td>108026</td>
+      <td>20.46</td>
+      <td>NaN</td>
+      <td>39.145802</td>
+      <td>-123.198494</td>
+      <td>{}</td>
+      <td>9</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>{u'available': 0, u'total': 1}</td>
+      <td>{u'81': 1}</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>315</td>
+      <td>2356718</td>
+      <td>446.35</td>
+      <td>[Super 8 Ukiah]</td>
+      <td>NaN</td>
+      <td>unknown</td>
+      <td>NaN</td>
+      <td>open</td>
+      <td>270</td>
+      <td>8334266</td>
+      <td>1,578.46</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{u'address1': u'N Oak &amp; W Standley St', u'stat...</td>
+      <td>315</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>24 hours daily</td>
+      <td>1000009079</td>
+      <td>111394</td>
+      <td>21.10</td>
+      <td>NaN</td>
+      <td>39.150002</td>
+      <td>-123.209099</td>
+      <td>{}</td>
+      <td>9</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>{u'available': 0, u'total': 3}</td>
+      <td>{u'81': 3}</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>315</td>
+      <td>2359808</td>
+      <td>446.93</td>
+      <td>[City of Ukiah - Public Parking Lot]</td>
+      <td>NaN</td>
+      <td>unknown</td>
+      <td>2</td>
+      <td>open</td>
+      <td>270</td>
+      <td>8336360</td>
+      <td>1,578.86</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{u'address1': u'21278 Calistoga Rd', u'state_n...</td>
+      <td>135</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>24 hours daily</td>
+      <td>1000018605</td>
+      <td>117353</td>
+      <td>22.23</td>
+      <td>NaN</td>
+      <td>38.749672</td>
+      <td>-122.615921</td>
+      <td>{}</td>
+      <td>9</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>{u'available': 0, u'total': 1}</td>
+      <td>{u'81': 1}</td>
+      <td>NaN</td>
+      <td>{u'honda_program_enabled': 0, u'bmw_program_en...</td>
+      <td>315</td>
+      <td>2140509</td>
+      <td>405.40</td>
+      <td>[Chef Steve's]</td>
+      <td>NaN</td>
+      <td>unknown</td>
+      <td>NaN</td>
+      <td>open</td>
+      <td>270</td>
+      <td>8245510</td>
+      <td>1,561.65</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Final-Notes-on-Automation">Final Notes on Automation<a class="anchor-link" href="#Final-Notes-on-Automation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In some ways this example is a bit easier to handle than the first because the API returns the data in a relatively easy to manage format. To automate collecting the data over all of California is ultimately much more challenging than the automation process for the first example.</p>
+<p>Besides devising a grid of northeast lat-long and southwest lat-long for my search boxes, I also notice another obstacle common to some APIs. At most the server will give me the full data on 50 charging stations at a time. The way to handle this capped-data problem is to submit more restrictive search parameters; in this case, I need to provide small search areas in high density areas. Some APIs are nice and give you a way to request the specific "page" of results. This one was not.</p>
+<p>In the end I have a product that can scrape the occupancy status of over 9000 station charging stations in around 2 minutes.</p>
+
+</div>
+</div>
+</div></p>
+            </div><!-- /.entry-content -->
+            <div class="comments">
+              <h3>Comments</h3>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_identifier = "scraping-summary.html";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://anythingbuteconomist.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+            </div>
+
+
+        </div><!-- /.eleven.columns -->
+        
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+      <li><a href="http://shapiromh.com">Academic Site</a></li>
+  </ul>
+
+<h4>Categories</h4>
+<ul>
+		<li><a href="https://shapiromh.github.io/category/misc.html">misc</a></li>
+		<li><a href="https://shapiromh.github.io/category/scraping.html">scraping</a></li>
+		<li><a href="https://shapiromh.github.io/category/testing.html">testing</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+	<ul>
+</ul>
+
+
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'anythingbuteconomist';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+  <script src="https://shapiromh.github.io/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="https://shapiromh.github.io/theme/js/libs/gumby.min.js"></script>
+  <script src="https://shapiromh.github.io/theme/js/plugins.js"></script>
+</body>
+</html>
