@@ -485,7 +485,7 @@ $4,598,888
 &lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[10]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;output_pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;output_pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -496,103 +496,23 @@ $4,598,888
 &lt;div class="output"&gt;
 
 
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[10]:&lt;/div&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;  row    date  day day_no  top10_gross change_yesterday change_lastweek  \
+0   1  Mar. 1  Sun     60  $22,582,146           -43.9%          -17.4%   
+1   2  Mar. 2  Mon     61   $6,284,967           -72.2%          -14.9%   
+2   3  Mar. 3  Tue     62   $7,455,929           +18.6%          -20.9%   
+3   4  Mar. 4  Wed     63   $5,557,631           -25.5%          -19.0%   
+4   5  Mar. 5  Thu     64   $5,703,536            +2.6%          -20.4%   
 
-&lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
-&lt;div&gt;
-&lt;table border="1" class="dataframe"&gt;
-  &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;row&lt;/th&gt;
-      &lt;th&gt;date&lt;/th&gt;
-      &lt;th&gt;day&lt;/th&gt;
-      &lt;th&gt;day_no&lt;/th&gt;
-      &lt;th&gt;top10_gross&lt;/th&gt;
-      &lt;th&gt;change_yesterday&lt;/th&gt;
-      &lt;th&gt;change_lastweek&lt;/th&gt;
-      &lt;th&gt;movies_tracked&lt;/th&gt;
-      &lt;th&gt;top_movie&lt;/th&gt;
-      &lt;th&gt;top_gross&lt;/th&gt;
-      &lt;th&gt;year&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Mar. 1&lt;/td&gt;
-      &lt;td&gt;Sun&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;$22,582,146&lt;/td&gt;
-      &lt;td&gt;-43.9%&lt;/td&gt;
-      &lt;td&gt;-17.4%&lt;/td&gt;
-      &lt;td&gt;46&lt;/td&gt;
-      &lt;td&gt;Focus&lt;/td&gt;
-      &lt;td&gt;$4,598,888&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;Mar. 2&lt;/td&gt;
-      &lt;td&gt;Mon&lt;/td&gt;
-      &lt;td&gt;61&lt;/td&gt;
-      &lt;td&gt;$6,284,967&lt;/td&gt;
-      &lt;td&gt;-72.2%&lt;/td&gt;
-      &lt;td&gt;-14.9%&lt;/td&gt;
-      &lt;td&gt;46&lt;/td&gt;
-      &lt;td&gt;Focus&lt;/td&gt;
-      &lt;td&gt;$1,518,217&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;Mar. 3&lt;/td&gt;
-      &lt;td&gt;Tue&lt;/td&gt;
-      &lt;td&gt;62&lt;/td&gt;
-      &lt;td&gt;$7,455,929&lt;/td&gt;
-      &lt;td&gt;+18.6%&lt;/td&gt;
-      &lt;td&gt;-20.9%&lt;/td&gt;
-      &lt;td&gt;46&lt;/td&gt;
-      &lt;td&gt;Focus&lt;/td&gt;
-      &lt;td&gt;$1,860,439&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;Mar. 4&lt;/td&gt;
-      &lt;td&gt;Wed&lt;/td&gt;
-      &lt;td&gt;63&lt;/td&gt;
-      &lt;td&gt;$5,557,631&lt;/td&gt;
-      &lt;td&gt;-25.5%&lt;/td&gt;
-      &lt;td&gt;-19.0%&lt;/td&gt;
-      &lt;td&gt;46&lt;/td&gt;
-      &lt;td&gt;Focus&lt;/td&gt;
-      &lt;td&gt;$1,286,208&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;Mar. 5&lt;/td&gt;
-      &lt;td&gt;Thu&lt;/td&gt;
-      &lt;td&gt;64&lt;/td&gt;
-      &lt;td&gt;$5,703,536&lt;/td&gt;
-      &lt;td&gt;+2.6%&lt;/td&gt;
-      &lt;td&gt;-20.4%&lt;/td&gt;
-      &lt;td&gt;44&lt;/td&gt;
-      &lt;td&gt;Focus&lt;/td&gt;
-      &lt;td&gt;$1,203,495&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+  movies_tracked top_movie   top_gross  year  
+0             46     Focus  $4,598,888  2015  
+1             46     Focus  $1,518,217  2015  
+2             46     Focus  $1,860,439  2015  
+3             46     Focus  $1,286,208  2015  
+4             44     Focus  $1,203,495  2015  
+&lt;/pre&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-
 &lt;/div&gt;
 
 &lt;/div&gt;
