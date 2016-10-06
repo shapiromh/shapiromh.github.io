@@ -67,7 +67,7 @@ on the fly following a form submission on the website. The video below illustrat
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;video width="960" height="720" src="movies/joel_demo.mov" controls&gt;&lt;/video&gt;&lt;/p&gt;
+&lt;p&gt;&lt;video width="960" height="720" src="../movies/joel_demo.mov" controls&gt;&lt;/video&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -171,7 +171,7 @@ on the fly following a form submission on the website. The video below illustrat
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;For example the html element surrounding the text of &lt;strong&gt;Pub CR Serial Register Page&lt;/strong&gt; is 
-&lt;img src='images/dom_serial.png'&gt;&lt;/p&gt;
+&lt;img src='../images/dom_serial.png'&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -203,7 +203,7 @@ $$
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;The above syntax works for inexact attribute matching. Step 3, selecting the radio button for &lt;strong&gt;New Format Serial Entry&lt;/strong&gt; demonstrates a case for exact matching. 
-&lt;img src='images/dom_entry.png'&gt;&lt;/p&gt;
+&lt;img src='../images/dom_entry.png'&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
