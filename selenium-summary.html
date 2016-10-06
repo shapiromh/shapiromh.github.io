@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <title>An Introduction to Scraping with Selenium</title>
+        <meta charset="utf-8" />
+        <link href="https://shapiromh.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Anything But Economist Full Atom Feed" />
+        <link href="https://shapiromh.github.io/feeds/scraping.atom.xml" type="application/atom+xml" rel="alternate" title="Anything But Economist Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="https://shapiromh.github.io/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="https://shapiromh.github.io/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="https://shapiromh.github.io/theme/pygment.css" />
+
+        <script src="https://shapiromh.github.io/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="https://shapiromh.github.io/">Anything But Economist <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="https://shapiromh.github.io/">Home</a></li>
+
+                <li><a href="http://shapiromh.com">Academic Site</a></li>
+                <li><a href="https://shapiromh.github.io/pages/about.html">About</a></li>
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="https://shapiromh.github.io/selenium-summary.html" rel="bookmark"
+                   title="Permalink to An Introduction to Scraping with Selenium">An Introduction to Scraping with Selenium</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2016-10-06T12:15:00-05:00">
+                Thu 06 October 2016
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="https://shapiromh.github.io/author/matthew-h-shapiro.html"> Matthew H. Shapiro</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Selenium-Demonstration">Selenium Demonstration<a class="anchor-link" href="#Selenium-Demonstration">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Selenium browser automation is, in my opinion, a last resort for large-need scraping.
+The list of cons in dealing with it is extensive (well, I am sure there are more):</p>
+<ul>
+<li>High memory overhead / harder to parallelize</li>
+<li>More prone to program crashes</li>
+</ul>
+<p>It becomes a necessity, however, in a few cases I have encountered:</p>
+<ol>
+<li>Form-type submission to generate documents has indiscernible API</li>
+<li>Full page source only available after execution of javascript functions</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Test-Case">Test Case<a class="anchor-link" href="#Test-Case">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The goal is to collect historical lease records on federal lands in North Dakota from the BLM website. 
+The difficulty from scraping it falls under the first category mentioned above; the lease data is generated
+on the fly following a form submission on the website. The video below illustrates what the final process should like like.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><video width="960" height="720" src="movies/joel_demo.mov" controls></video></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This tutorial will walk through the basics of Selenium and how to automate the download of these lease records. It will not go through the process of parsing the data out of the downloaded records.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Preparation">Preparation<a class="anchor-link" href="#Preparation">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As shown in the video, automated selenium looks as if an invisible human is navigating through the page. The user's code tells selenium which web page elements to focus on and then how to interact with that element. These interactions include clicking, filling out text, etc.</p>
+<p>Preparing to automate with selenium then comprises the following steps:</p>
+<ol>
+<li>Identify the steps which need to be automated</li>
+<li>For each step figure out how to identify the web page elements in selenium</li>
+<li>Plan out complications in the code</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Preparation---Part-1">Preparation - Part 1<a class="anchor-link" href="#Preparation---Part-1">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consulting with the video above, the automation steps are pretty obvious:</p>
+<ol>
+<li>Start at <a href="https://rptapp.blm.gov/landandresourcesreports/rptapp/menu.cfm?appCd=2">https://rptapp.blm.gov/landandresourcesreports/rptapp/menu.cfm?appCd=2</a></li>
+<li>Click <strong>Pub CR Serial Register Page</strong> under <em>Public Case Recordation Reports</em></li>
+<li>On the new page, select the radio button <strong>New Format Serial Entry</strong> </li>
+<li>Click <strong>Select Criteria</strong></li>
+<li>On the new page, select <strong>ND North Dakota</strong> from the drop down list next to Geo State</li>
+<li>Select <strong>M</strong> from the drop down list next to Land Office</li>
+<li>Fill in the desired serial number in the <strong>Serial Number</strong> entry box; note some serial numbers not covered in the tutorial would also require prefix and suffix submissions</li>
+<li>Click <strong>Enter Value</strong></li>
+<li>Select <strong>Okay</strong> in the alert box</li>
+<li>Click <strong>Run Report</strong></li>
+<li>Select <strong>Okay</strong> in the alert box</li>
+<li>Switch to the new window</li>
+<li>Download the data page</li>
+<li>Close the page</li>
+<li>Return to the original window</li>
+<li>Clear the entries by selecting <strong>Clear All</strong></li>
+<li>Repeat steps 7 through 16 as needed</li>
+</ol>
+<p>At steps 5 through 9, multiple serial numbers could be submitted but will not be for the purposes of this demo.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Preparation---Part-2">Preparation - Part 2<a class="anchor-link" href="#Preparation---Part-2">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are a lot directions from step 1 on which we need to direct selenium. One easy way to point selenium to elements in a web page is <strong>xpath</strong> directions. A nice tutorial of basic xpath syntax can be found <a href="http://www.w3schools.com/xsl/xpath_syntax.asp"><strong>here</strong></a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For example the html element surrounding the text of <strong>Pub CR Serial Register Page</strong> is 
+<img src='images/dom_serial.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Through a bit of work I found the 'href' attribute contains text unique to the desired html element. We can use xpath to point to that element in the page via the following example, <strong>//a[contains(@href,"Id=3&amp;appCd=2")]</strong>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+\text{//}\underbrace{\text{a}}_{tag}\text{[contains(}\underbrace{\text{@href}}_{attr},\underbrace{\text{"Id=3&appCd=2"}}_{value}\text{)]}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above syntax works for inexact attribute matching. Step 3, selecting the radio button for <strong>New Format Serial Entry</strong> demonstrates a case for exact matching. 
+<img src='images/dom_entry.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The title attribute should be unique, and we point xpath to this element via <strong>//input[@title="New Format Serial Entry"]</strong>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+\text{//}\underbrace{\text{input}}_{\text{tag}}\text{[}\underbrace{\text{@title}}_{\text{attr}}\text{=}\underbrace{\text{"New Format Serial Entry"}}_{\text{value}}\text{]}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Once you can identify these unique elements quickly, finishing off step 2 of the preparation is a breeze. The actual code later in this tutorial will label these identifying steps by the numbers used in the section on the first preparation step.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Preparation---Part-3">Preparation - Part 3<a class="anchor-link" href="#Preparation---Part-3">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This bit of preparation is easier once one has more experience with selenium's idiosyncracies. To save a bit of time, here are challenges I originally ran into when coding this scraper along with the way we will have selenium handle them. Some are rather mundane.</p>
+<ol>
+<li>The automator's pop-up blocker is on by default and blocks report generation: selenium allows browser preference tweaks</li>
+<li>The desired html was hidden by an iframe: selenium allows focus to switch to an iframe within a webpage and access to its elements</li>
+<li>Alert pop ups block continuing the automation: selenium natively handles alert boxes</li>
+<li>The report generated appears in a new tab/window: selenium easily handles window switching</li>
+<li>Report generation varies in time, and the code may crash if it tries to continue too early: selenium allows for advanced progression controls. Here I noticed the browser has 3 windows when generating the report. The third goes away when the report has finished generating. I create a control condition to wait for only 2 windows. </li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Using-Selenium">Using Selenium<a class="anchor-link" href="#Using-Selenium">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before diving into the scraping code, a small demonstration of selenium illustrates its basic capabilities.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The primary object you manage is a browser instance created, here called "sess." There are multiple browser options available, including Firefox, Chrome, and even headless browsers if you are working without an a display. We will be using Chrome.</p>
+<p>Running the following command should cause a new chrome browser instance to pop up on your computer.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There is a lot to play around with, but the basic command is to open a website via our browser. The get method opens the specified webpage.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://www.google.com&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let us do the impossible and find "Donald Trump's dignity" with a google search. We need to</p>
+<ol>
+<li>Point the webdriver to the text input box</li>
+<li>Input the text</li>
+<li>Hit enter to complete the search</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Point webdriver</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@title=&quot;Search&quot;]&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Input text</span>
+<span class="n">q</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&quot;Donald Trump&#39;s dignity&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># &#39;Hit Enter&#39;</span>
+<span class="n">q</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The exercise failed, but it shows off how easy automation can be with selenium.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Full-Example">Full Example<a class="anchor-link" href="#Full-Example">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The code throughout this section will download the mineral lease data for five property areas in North Dakota.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, a bit of pre-code to put together the list of serial numbers:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Extract list of serial numbers to look up</span>
+
+<span class="n">fedleases</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;files/leasesections.csv&#39;</span><span class="p">)</span>
+<span class="n">serial</span> <span class="o">=</span> <span class="n">fedleases</span><span class="o">.</span><span class="n">serial_number</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">serial_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">serial</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">serial</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">serial_list</span> <span class="o">=</span> <span class="n">serial_list</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># Limit demo to first five serial numbers</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">serial_list</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Second, useful functions for the repeated navigation steps and the window-counting timing control mentioned in preparation step 3.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">class</span> <span class="nc">window_count</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks for the number of windows in the browser</span>
+<span class="sd">    For use with WebDriverWait&#39;s until condition</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windowcheck</span> <span class="o">=</span> <span class="n">count</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowcheck</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">window_handles</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">navigation</span><span class="p">(</span><span class="n">caseid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function takes a serial number from serial_list and</span>
+<span class="sd">    1. Parses the serial number for input in Prep Part 1 steps 5 through 7</span>
+<span class="sd">    2. Clears the previous serial number entries</span>
+<span class="sd">    3. Inputs the new serial number data</span>
+<span class="sd">    4. Generates the report for the serial number</span>
+<span class="sd">    5. The code concludes by switching to the window with the report</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Parse serial number into the components input in steps 5 through 7</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">caseid</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">office</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ND(\D+)&#39;</span><span class="p">,</span> <span class="n">caseid</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;\A00&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;\A00&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\D+?\Z&#39;</span><span class="p">,</span> <span class="n">caseid</span><span class="p">):</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;\D+?\Z&#39;</span><span class="p">,</span> <span class="n">caseid</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># Step 16</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@value=&quot;Clear All&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@value=&quot;Clear&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="c1"># Step 5</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//option[@value=&quot;ND&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="c1"># Step 6</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">landoffice</span> <span class="o">=</span> <span class="s1">&#39;//option[@value=&quot;{}&quot;]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">office</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">landoffice</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="c1"># Step 7</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@name=&quot;prefixInputE&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+
+    <span class="c1"># Step 7</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@name=&quot;snInputE&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="c1"># Step 7</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@name=&quot;suffixInputE&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
+
+    <span class="c1"># Step 8</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@value=&quot;Enter Value&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="c1"># Step 9</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">switch_to_alert</span><span class="p">()</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+
+    <span class="c1"># Step 10</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@value=&quot;Run Report&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="c1"># Step 11</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">switch_to_alert</span><span class="p">()</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+
+    <span class="c1"># This code blocks the code from continuing until there are only 2 windows</span>
+    <span class="c1">#     after report generation</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">window_count</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Step 12</span>
+        <span class="n">sess</span><span class="o">.</span><span class="n">switch_to_window</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">window_handles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, the main code block starting up the webdriver and working through steps 1-4 from the first preparation stage. 
+The code then loops through the desired serial numbers and downloads the data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">blmhome</span> <span class="o">=</span> <span class="s1">&#39;http://www.blm.gov/landandresourcesreports/rptapp/menu.cfm?appCd=2&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Set up chrome options to disable pop up blocking</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">ChromeOptions</span><span class="p">()</span>
+<span class="n">cp</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;disable-popup-blocking&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sess</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">chrome_options</span><span class="o">=</span><span class="n">cp</span><span class="p">)</span>
+<span class="n">sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">blmhome</span><span class="p">)</span>  <span class="c1"># Step 1</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Because we need to switch windows later to get the report, we need to save</span>
+<span class="c1">#     selenium&#39;s ID for our main page</span>
+<span class="n">windowid</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">current_window_handle</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Step 2</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//a[contains(@href,&quot;Id=3&amp;appCd=2&quot;)]&#39;</span><span class="p">)</span>
+<span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Step 3</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@title=&quot;New Format Serial Entry&quot;]&#39;</span><span class="p">)</span>
+<span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Step 4</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//input[@value=&quot;Select Criteria&quot;]&#39;</span><span class="p">)</span>
+<span class="n">q</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Steps 5 forward are embedded in the loop over the serial numbers and download the data. Technically reports are several pages long and require further manipulation to download each page. Here I just download the first page for demonstration.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">serial_list</span><span class="p">:</span>
+    
+    <span class="c1"># This function clears any existing data on the page (none at first)</span>
+    <span class="c1">#    And moves us to step 12</span>
+    <span class="n">navigation</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
+    
+    <span class="c1"># The content of the new page is imbedded in an iframe entitled &quot;iServerFrame&quot;</span>
+    <span class="n">sess</span><span class="o">.</span><span class="n">switch_to_frame</span><span class="p">(</span><span class="s1">&#39;iServerFrame&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Save the page source for later parsing</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;SN_{}.html&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">case</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">page_source</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># Close the report window</span>
+    <span class="n">sess</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="c1"># Switch back to the main window</span>
+    <span class="n">sess</span><span class="o">.</span><span class="n">switch_to_window</span><span class="p">(</span><span class="n">windowid</span><span class="p">)</span>
+    
+<span class="n">sess</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Final-Notes">Final Notes<a class="anchor-link" href="#Final-Notes">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I have found that selenium, more than more direct scraping methods is prone to crashing. These errors make it especially important to have a system to monitor that everything is working correctly when not under direct observation. Some extra steps I took in the real code that I left out here include:</p>
+<ol>
+<li>Download log</li>
+<li>Emails to my account if the program crashed</li>
+<li>Checks embedded within the program to deal with common errors without a crash, e.g. no data for a particular serial number or if the service stopped working</li>
+</ol>
+
+</div>
+</div>
+</div></p>
+            </div><!-- /.entry-content -->
+            <div class="comments">
+              <h3>Comments</h3>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_identifier = "selenium-summary.html";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://anythingbuteconomist.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+            </div>
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+      <li><a href="http://shapiromh.com">Academic Site</a></li>
+      <li><a href="https://shapiromh.github.io/pages/about.html">About</a></li>
+  </ul>
+
+<h4>Categories</h4>
+<ul class="blank">
+		<li><a href="https://shapiromh.github.io/category/scraping.html">scraping</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+	<ul class="blank">
+</ul>
+
+
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'anythingbuteconomist';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+  <script src="https://shapiromh.github.io/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="https://shapiromh.github.io/theme/js/libs/gumby.min.js"></script>
+  <script src="https://shapiromh.github.io/theme/js/plugins.js"></script>
+</body>
+</html>
