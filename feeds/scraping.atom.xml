@@ -192,17 +192,6 @@ on the fly following a form submission on the website. The video below illustrat
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 $$
-3 + 4 = 7
-$$
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-$$
 \text{//}\underbrace{\text{a}}_{tag}\text{[contains(}\underbrace{\text{@href}}_{attr},\underbrace{\text{"Id=3&amp;appCd=2"}}_{value}\text{)]}
 $$
 &lt;/div&gt;
