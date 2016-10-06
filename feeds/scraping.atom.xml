@@ -191,9 +191,9 @@ on the fly following a form submission on the website. The video below illustrat
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-\begin{equation}
+$$
 \text{//}\underbrace{\text{a}}_{tag}\text{[contains(}\underbrace{\text{@href}}_{attr},\underbrace{\text{"Id=3&amp;appCd=2"}}_{value}\text{)]}
-\end{equation}
+$$
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -223,9 +223,9 @@ on the fly following a form submission on the website. The video below illustrat
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-\begin{equation}
+$$
 \text{//}\underbrace{\text{input}}_{\text{tag}}\text{[}\underbrace{\text{@title}}_{\text{attr}}\text{=}\underbrace{\text{"New Format Serial Entry"}}_{\text{value}}\text{]}
-\end{equation}
+$$
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
